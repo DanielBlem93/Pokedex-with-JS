@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="src/styles/style.css">
 </head>
-<body>
-    
+
+<body onload="loadPokemon()">
+
+    <header>
+        <img id="pokeball-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
+        <img id="pokedex-logo"
+            src="src/img/68747470733a2f2f696b2e696d6167656b69742e696f2f6877796b73766a3469762f706f6b656465785f4e5f576757724a4b30732e706e67.webp"
+            alt="">
+        <div id="search">
+            <input placeholder="" type="text" name="search" id="search-input">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="14" cy="14" r="9" />
+                <line x1="22" y1="22" x2="29" y2="29" />
+            </svg>
+        </div>
+
+    </header>
 
 
 
 
+    <div id="pokedex">
+        <h1 id="pokemon-name"></h1>
+        <img id="pokemon-img" src="" alt="">
+    </div>
+    <div class="info-container">
 
-    
-<script src="src/js/main.js"></script>
+    </div>
+
+
+
+
+    <script src="src/js/main.js"></script>
 </body>
+
 </html>

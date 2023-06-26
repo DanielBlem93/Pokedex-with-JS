@@ -1,0 +1,84 @@
+@font-face {
+    font-family: "OpenSans";
+    src: url(../fonts/OpenSans-Italic-VariableFont_wdth\,wght.ttf);
+    src: url(../fonts/OpenSans-VariableFont_wdth\,wght.ttf);
+}
+
+:root {
+    font-family: "OpenSans", sans-serif;
+}
+
+body {
+
+    margin: 0;
+}
+
+header {
+    height: 70px;
+    width: 100%;
+    background-color: rgb(58, 112, 160);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#pokeball-img {
+    object-fit: contain;
+    width: 70px;
+    margin-left: 24px;
+}
+#search{
+    display: flex;
+    align-items: center;
+    margin-right:24px ;
+}
+
+
+#search-input {
+    font-size: 1.2rem;
+    text-align: center;
+    color: white;
+    margin-right: 24px;
+   
+    height: 30px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 20px;
+    background-color: rgba(240, 248, 255, 0);
+
+    transition: 225ms ease-in-out;
+}
+#search-input::placeholder{
+    color: rgba(255, 255, 255, 0.63);
+    text-align: center
+}
+
+#search-input:active{
+  
+}
+#search-input:focus{
+    max-width: 300px;
+    outline: unset;
+}
+
+#pokedex-logo {
+    object-fit: cover;
+    width: 8%;
+}
+
+#pokedex {
+
+    min-height: 50vh;
+    background-color: rgb(207, 43, 43);
+    color: white;
+    display: flex;
+    padding: 24px;
+}
+
+.info-container {
+    background-color: white;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    min-height: 100px;
+    margin-top: -40px;
+}
