@@ -1,12 +1,16 @@
 let currentPokemon;
 let currentPokemon2;
 
-async function render() {
+function init(){
+    render()
+}
 
+
+async function render() {
 
     pokedex.innerHTML = '';
 
-     for (let i = 1; i < 12; i++) {
+     for (let i = 1; i < 50; i++) {
 
         await loadPokemon(i)
 
@@ -14,7 +18,7 @@ async function render() {
 
         pokedex.innerHTML += /*html*/` 
 
-        <div class="pokemon-card">
+        <div class="pokemon-card bg${i}">
             <div class="image-frame">
                 <img class="pokemon-img-style" id="pokemon-img${i}" src="">
             </div>
@@ -22,20 +26,21 @@ async function render() {
             <div class="info-container">
                 <div class="info-box">
                     <div class="row">
-                        <p class="pokemon-name${i} pokemon-names"></p>
+                        <p>
+                            <b>#</b> <span class="pokemon-number${i} numbers"></span>
+                        </p>
                         <div class="elements element1${i}" >Normal</div>
                     </div>
                     <div class="row">
-                        <p>
-                            # <span class="pokemon-number${i}"></span>
-                        </p>
-                    <div class="elements element2${i}" >Pflanze</div>
-                    
+                        <p class="pokemon-name${i} pokemon-names"></p>
+                      
+                        <div class="elements element2${i}" >Pflanze</div> 
+                    </div>
                 </div>
             </div>
-
         </div>`
         renderPokemonInfo(i)
+        setElement(i)
     }
 }
 
@@ -68,8 +73,48 @@ async function renderPokemonInfo(i) {
 }
 
 
+function setElement(i){
+
+let element1 = document.getElementsByClassName(`element1${i}`)
+let element2 = document.getElementsByClassName(`element2${i}`)
+let type1 =  currentPokemon['types'][0]['type']['name']
+let type2
+
+element1[0].innerHTML = type1
+
+if(currentPokemon['types'][1]){
+    type2 = currentPokemon['types'][1]['type']['name']
+    element2[0].innerHTML = type2
+}else{
+    element2[0].style.display = 'none'
+}
 
 
+}
+
+
+
+
+
+
+async function checkgeBgColor(i){
+ 
+
+    switch (color) {
+        case green:
+            changeBgColor(i, color)
+            break;
+    
+        default:
+            break;
+    }
+}
+
+
+// function changeBgColor(i, color){
+// let pokemonCard = document.getElementsByClassName(`bg${i}`)[0];
+// pokemonCard.classList.add('')
+// }
 
 
 // async function renderPokemonInfo(i) {
