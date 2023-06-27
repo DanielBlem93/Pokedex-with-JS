@@ -8,9 +8,9 @@ function init(){
 
 async function render() {
 
-    pokedex.innerHTML = '';
+    // pokedex.innerHTML = '';
 
-     for (let i = 1; i < 152; i++) {
+     for (let i = 1; i < 50; i++) {
 
         await loadPokemon(i)
 
@@ -27,7 +27,7 @@ async function render() {
                 <div class="info-box">
                     <div class="row">
                         <p>
-                            <b>#</b> <span class="pokemon-number${i} numbers"></span>
+                            <b>#</b><span class="pokemon-number${i} numbers"></span>
                         </p>
                         <div class="elements element1${i}" >Normal</div>
                     </div>
@@ -38,6 +38,7 @@ async function render() {
                     </div>
                 </div>
             </div>
+            <div class="backside"></div>
         </div>`
         renderPokemonInfo(i)
         setElement(i)
@@ -100,7 +101,6 @@ function setElement(i){
 
 function changeBackgroundColor(i){
     let pokemonCard = document.getElementsByClassName(`bg${i}`)
-    
     let mainElement = document.getElementsByClassName(`element1${i}`)[0].innerHTML
     let secondElement = document.getElementsByClassName(`element2${i}`)[0].innerHTML
     
@@ -108,7 +108,6 @@ function changeBackgroundColor(i){
     let element2= document.getElementsByClassName(`element2${i}`)[0]
 
     pokemonCard[0].classList.add(`${mainElement}`) 
-
     element1.classList.add(`${mainElement}`) 
     element2.classList.add(`${secondElement}`) 
 

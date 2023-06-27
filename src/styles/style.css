@@ -67,7 +67,8 @@ header {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 24px;
+    padding-top: 24px;
+    padding-bottom: 24px;
 
     color: var(--Hauptfarbe);
     background-color: rgb(255, 255, 255);
@@ -151,7 +152,8 @@ header {
     background-color: var(--element-normal);
     position: relative;
     overflow: hidden;
-
+    transition: 225ms ease-in-out;
+    cursor: pointer;
 }
 
 
@@ -166,7 +168,7 @@ header {
 
 }
 
- .pokemon-card::before  {
+.pokemon-card::before {
     content: "";
     background-image: url(../img/clipart2514739.png);
     background-size: contain;
@@ -181,7 +183,7 @@ header {
     opacity: 0.05;
     z-index: 1;
 
-} 
+}
 
 
 .pokemon-img-style {
@@ -189,12 +191,10 @@ header {
     height: 300px;
     object-fit: contain;
     z-index: 2;
+    transition: 125ms ease-in-out;
 
 }
 
-.pokemon-names {
-    font-weight: bold;
-}
 
 .info-container {
 
@@ -216,7 +216,7 @@ header {
     border-top: 2px solid var(--Hauptfarbe);
     border-right: 2px solid var(--Hauptfarbe);
     border-left: 2px solid var(--Hauptfarbe);
-  
+
 }
 
 .info-box {
@@ -234,11 +234,15 @@ header {
     align-items: center;
     justify-content: space-between;
     gap: 40px;
-  
+
+}
+
+.pokemon-names {
+    font-weight: bolder;
 }
 
 .numbers {
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 .elements {
@@ -248,10 +252,26 @@ header {
     border-radius: 15px;
     background-color: var(--element-normal);
     border: 1px solid var(--Hauptfarbe);
-    
+
     text-transform: capitalize;
     font-weight: 600;
 }
+
+/* For animations */
+.pokemon-card:hover .pokemon-img-style {
+    width: 220px;
+    height: 220px;
+
+    transition: 125ms ease-in-out;
+
+}
+
+.pokemon-card:hover {
+    box-shadow: -10px 7px 13px -7px var(--Hauptfarbe), 10px 7px 13px -7px var(--Hauptfarbe), -10px 7px 13px -7px rgba(0, 0, 0, 0);
+    transition: 125ms ease-in-out;
+}
+
+
 
 /* js classes */
 /* element colors */
@@ -312,12 +332,42 @@ header {
 .fairy {
     background-color: var(--element-fairy);
 }
+
 .steel {
     background-color: var(--element-steel);
 }
+
 .fighting {
     background-color: var(--element-fight);
 }
-.bug{
+
+.bug {
     background-color: var(--element-bug);
 }
+
+/* Information card */
+#information-card {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.579);
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#information-container {
+    width: 70%;
+    height: 70%;
+    border-radius: 15px;
+    border: 2px solid var(--Hauptfarbe);
+    background-color:  rgb(240, 240, 240)
+}
+
+/* test */
