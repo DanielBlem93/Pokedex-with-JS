@@ -11,6 +11,20 @@
     font-size: 20px;
     --Hauptfarbe: rgb(58, 112, 160);
     --background-grey: rgba(8, 8, 8, 0.096);
+    --element-normal: #AAA878;
+    --element-fire:#F07F2F;
+    --element-water: #6890F0;
+    --element-plant: #79C950;
+    --element-electro: #F8D030;
+    --element-ice: #98D8D8;
+    --element-poisen: #A040A1;
+    --element-ground: #E0C069;
+    --element-flight: #A98FF0;
+    --element-psycho: #F95989;
+    --element-stone: #B7A038;
+    --element-ghost: #715699;
+    --element-dragon: #7038F9;
+    --element-fairy: #F7C9E3;
 
 }
 
@@ -105,17 +119,23 @@ header {
 /* Main section */
 
 #pokedex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 48px;
+
+    min-height: 50vh;
     margin: 16px;
+    padding:80px 0px 80px 0;
+
     border: 2px solid var(--Hauptfarbe);
     border-radius: 15px;
-    min-height: 50vh;
     background-color: var(--background-grey);
     color: var(--Hauptfarbe);
-    display: flex;
-    padding: 24px;
 }
 
-#pokemon-card{
+.pokemon-card{
     width: 300px;
     height: 400px;
     /* border: 2px solid black; */
@@ -124,7 +144,7 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #FC6C6D;
+    background-color: var(--element-normal)
 }
 .image-frame{
     margin-top: 35px;
@@ -135,36 +155,55 @@ header {
     width: 300px;
     height: 200px;
 }
-#pokemon-img{
+.pokemon-img-style{
     width: 200px;
     height: 300px;
     object-fit: contain;
    
 }
 
+.pokemon-names{
+    font-weight: bold;
+}
+
 .info-container {
 
     background-color: whitesmoke;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 
     min-height: 120px;
-    margin-top: 17px;
+    margin-top: 45px;
     width: 100%;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
 }
 .info-box
 {
     display: flex;
     flex-direction: column;
+    width: 90%;
     gap: 20px;
+    text-align: center;
+}
 
+.row{
+    
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
 
+.elements{
+    color: black;
+    padding: 5px;
+    border-radius: 15px;
+    background-color: var(--element-normal);
 }
 
