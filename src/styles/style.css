@@ -23,6 +23,10 @@
     --element-ghost: #715699;
     --element-dragon: #7038F9;
     --element-fairy: #F7C9E3;
+    --element-steel: #B8B8D0;
+    --element-fight: #C13129;
+    --element-bug: #A9B821;
+
 
 }
 
@@ -227,6 +231,7 @@ header {
 .row {
 
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 40px;
   
@@ -237,11 +242,15 @@ header {
 }
 
 .elements {
+    min-width: 90px;
     color: black;
     padding: 5px;
     border-radius: 15px;
     background-color: var(--element-normal);
     border: 1px solid var(--Hauptfarbe);
+    
+    text-transform: capitalize;
+    font-weight: 600;
 }
 
 /* js classes */
@@ -260,11 +269,11 @@ header {
     background-color: var(--element-water);
 }
 
-.plant {
+.grass {
     background-color: var(--element-plant);
 }
 
-.electro {
+.electric {
     background-color: var(--element-electro);
 }
 
@@ -280,15 +289,15 @@ header {
     background-color: var(--element-ground);
 }
 
-.flight {
+.flying {
     background-color: var(--element-flight);
 }
 
-.psycho {
+.psychic {
     background-color: var(--element-psycho);
 }
 
-.stone {
+.rock {
     background-color: var(--element-stone);
 }
 
@@ -302,4 +311,13 @@ header {
 
 .fairy {
     background-color: var(--element-fairy);
+}
+.steel {
+    background-color: var(--element-steel);
+}
+.fighting {
+    background-color: var(--element-fight);
+}
+.bug{
+    background-color: var(--element-bug);
 }

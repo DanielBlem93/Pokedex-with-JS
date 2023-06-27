@@ -10,7 +10,7 @@ async function render() {
 
     pokedex.innerHTML = '';
 
-     for (let i = 1; i < 50; i++) {
+     for (let i = 1; i < 152; i++) {
 
         await loadPokemon(i)
 
@@ -75,39 +75,54 @@ async function renderPokemonInfo(i) {
 
 function setElement(i){
 
-let element1 = document.getElementsByClassName(`element1${i}`)
-let element2 = document.getElementsByClassName(`element2${i}`)
-let type1 =  currentPokemon['types'][0]['type']['name']
-let type2
+    let element1 = document.getElementsByClassName(`element1${i}`)
+    let element2 = document.getElementsByClassName(`element2${i}`)
+    let type1 =  currentPokemon['types'][0]['type']['name']
+    let type2
 
-element1[0].innerHTML = type1
+    element1[0].innerHTML = type1
 
-if(currentPokemon['types'][1]){
-    type2 = currentPokemon['types'][1]['type']['name']
-    element2[0].innerHTML = type2
-}else{
-    element2[0].style.display = 'none'
-}
-
-
-}
-
-
-
-
-
-
-async function checkgeBgColor(i){
- 
-
-    switch (color) {
-        case green:
-            changeBgColor(i, color)
-            break;
-    
-        default:
-            break;
+    if(currentPokemon['types'][1]){
+        type2 = currentPokemon['types'][1]['type']['name']
+        element2[0].innerHTML = type2
+    }else{
+        element2[0].style.display = 'none'
     }
+  changeBackgroundColor(i)
+
+
+}
+
+
+// 'normal' 'grass' 'poisen' 'fire' 
+// 'flying' 'water' 'bug' 'electric' 'ground' 'fairy' 
+// 'fighting' 'psychic' 'rock' 'steel' 'ice' 'ghost' 'dragon'
+
+function changeBackgroundColor(i){
+    let pokemonCard = document.getElementsByClassName(`bg${i}`)
+    
+    let mainElement = document.getElementsByClassName(`element1${i}`)[0].innerHTML
+    let secondElement = document.getElementsByClassName(`element2${i}`)[0].innerHTML
+    
+    let element1= document.getElementsByClassName(`element1${i}`)[0]
+    let element2= document.getElementsByClassName(`element2${i}`)[0]
+
+    pokemonCard[0].classList.add(`${mainElement}`) 
+
+    element1.classList.add(`${mainElement}`) 
+    element2.classList.add(`${secondElement}`) 
+
+}
+    
+
+
+
+
+
+
+async function checkElement(type){
+
+
 }
 
 
@@ -132,3 +147,57 @@ async function checkgeBgColor(i){
 
 // }
  
+
+ // switch (element) {
+    //     case 'normal':
+    //         pokemonCard[0].classList.add('normal');
+    //         break;
+    //     case 'grass':
+    //         pokemonCard[0].classList.add('grass');
+    //         break;
+    //     case 'poison':
+    //         pokemonCard[0].classList.add('poison');
+    //         break;
+    //     case 'fire':
+    //         pokemonCard[0].classList.add('fire');
+    //         break;
+    //     case 'flying':
+    //         pokemonCard[0].classList.add('flight');
+    //         break;
+    //     case 'water':
+    //         pokemonCard[0].classList.add('water');
+    //         break;
+    //     case 'bug':
+    //         pokemonCard[0].classList.add('bug');
+    //         break;
+    //     case 'electric':
+    //         pokemonCard[0].classList.add('electric');
+    //         break;
+    //     case 'ground':
+    //         pokemonCard[0].classList.add('ground');
+    //         break;
+    //     case 'fairy':
+    //         pokemonCard[0].classList.add('fairy');
+    //         break;
+    //     case 'fighting':
+    //         pokemonCard[0].classList.add('fighting');
+    //         break;
+    //     case 'psychic':
+    //         pokemonCard[0].classList.add('psychic');
+    //         break;
+    //     case 'rock':
+    //         pokemonCard[0].classList.add('ground');
+    //         break;
+    //     case 'steel':
+    //         pokemonCard[0].classList.add('steel');
+    //         break;
+    //     case 'ice':
+    //         pokemonCard[0].classList.add('ice');
+    //         break;
+    //     case 'ghost':
+    //         pokemonCard[0].classList.add('ghost');
+    //         break;
+    //     case 'dragon':
+    //         pokemonCard[0].classList.add('dragon');
+    //         break;
+    // }
