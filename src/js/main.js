@@ -91,11 +91,10 @@ function setElement(i,j){
 
 async function loadDescriptions(){
     let description = currentPokemon2['flavor_text_entries']['25']['flavor_text']
-    let description2 = currentPokemon2['flavor_text_entries']['58']['flavor_text']
     let content =document.getElementsByClassName ('description')[0]
 
     content.innerHTML = ""
-    content.innerHTML = description +" "+ description2
+    content.innerHTML = description
 }
 
 function changeBackgroundColor(i,j){
@@ -115,10 +114,17 @@ function changeBackgroundColor(i,j){
 function togglePopup(display){
     let informationCard = document.getElementById('information-card')
     informationCard.style.display = `${display}`
+
 }
   
 function doNotClose(event){
 event.stopPropagation()
+}
+
+function toggleNoScroll(action){
+let body =document.getElementsByTagName('body')[0]
+body.classList[action]('noscroll')
+
 }
 
 async function renderInformationCard(i){
@@ -128,7 +134,7 @@ informationContainer.innerHTML ="";
 informationContainer.innerHTML = /*html*/`
 
       
-    <img onclick="togglePopup('none')" id="close" src="src/img/close.png">
+    <img onclick="togglePopup('none'), toggleNoScroll('remove')" id="close" src="src/img/close.png">
     <div id="info-container-header"></div>
     <div class="pokemon-info">
         <img id="background-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
