@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="src/styles/style.css">
+
 </head>
 
 <body onload="init()">
@@ -31,40 +32,61 @@
 
 
 
+    <main>
+        <div id="pokedex">
+            <div onclick="togglePopup('flex') " class="pokemon-card bg${i}">
+                <div class="image-frame">
+                    <img class="pokemon-img-style pokemon-img${i}" src="">
+                </div>
 
-    <div id="pokedex">
-        <div onclick="openPopup(i)" class="test pokemon-card bg${i}">
-            <div class="image-frame">
-                <img class="pokemon-img-style" id="pokemon-img${i}" src="">
-            </div>
+                <div class="info-container">
+                    <div class="info-box">
+                        <div class="row">
+                            <p>
+                                <b>#</b><span class="pokemon-number${i} numbers">000</span>
+                            </p>
+                            <div class="elements element1${i}">Element1</div>
+                        </div>
+                        <div class="row">
+                            <p class="pokemon-name${i} pokemon-names">Name</p>
 
-            <div class="info-container">
-                <div class="info-box">
-                    <div class="row">
-                        <p>
-                            <b>#</b> <span class="pokemon-number${i} numbers">X</span>
-                        </p>
-                        <div class="elements element1${i}">Element 1</div>
-                    </div>
-                    <div class="row">
-                        <p class="pokemon-name${i} pokemon-names">Name</p>
-
-                        <div class="elements element2${i}">Element 2</div>
+                            <div class="elements element2${i}">Element2</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="backside"></div>
-        </div>
-    </div>
-    <div onclick="closePopup()" id="information-card" style="display: none;">
-        <div id="information-container">
-
         </div>
 
-    </div>
+        <div onclick="togglePopup('none')" id="information-card" style="display: none;">
+            <div onclick="doNotClose(event)" id="information-container">
+                <img onclick="togglePopup('none')" id="close" src="src/img/close.png">
+                <div class="pokemon-info">
+                    <div class="left-side">
 
+                        <div class="basic-information">
+                            <div class="row">
+                                <p>
+                                    <b>#</b><span class="pokemon-number${i} numbers">000</span>
+                                </p>
+                                <div class="elements element1${i}">Element1</div>
+                            </div>
+                            <div class="row">
+                                <p class="pokemon-name${i} pokemon-names">Name</p>
 
+                                <div class="elements element2${i}">Element2</div>
+                            </div>
+                        </div>
 
+                        <img class="pokemon-img-style-infocard pokemon-img${i}" src="">
+
+                    </div>
+                    <div class="right-side"></div>
+
+                </div>
+
+            </div>
+
+    </main>
 
     <script src="src/js/main.js"></script>
 </body>

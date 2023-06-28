@@ -9,6 +9,9 @@
     font-size: 20px;
     --Hauptfarbe: rgb(58, 112, 160);
     --background-grey: rgba(8, 8, 8, 0.096);
+    --boxshadow-hover: -10px 7px 13px -7px var(--Hauptfarbe), 10px 7px 13px -7px var(--Hauptfarbe), -10px 7px 13px -7px rgba(0, 0, 0, 0);
+
+
     --element-normal: #AAA878;
     --element-fire: #F07F2F;
     --element-water: #6890F0;
@@ -158,7 +161,6 @@ header {
 
 
 .image-frame {
-    /* border: 2px solid black; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -267,11 +269,160 @@ header {
 }
 
 .pokemon-card:hover {
-    box-shadow: -10px 7px 13px -7px var(--Hauptfarbe), 10px 7px 13px -7px var(--Hauptfarbe), -10px 7px 13px -7px rgba(0, 0, 0, 0);
+    box-shadow: var(--boxshadow-hover);
     transition: 125ms ease-in-out;
 }
 
 
+/* Information card */
+#information-card {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.579);
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#information-container {
+    width: 70%;
+    height: 70%;
+    border-radius: 15px;
+    border: 5px solid var(--Hauptfarbe);
+    background-color: rgb(242 242 242);
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.pokemon-info {
+    width: 95%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    z-index: 19;
+}
+
+.pokemon-info :before {
+    content: "";
+    background-image: url(../img/Poké_Ball_icon.svg.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    opacity: 0.002;
+    z-index: -1;
+
+}
+
+#close {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 99999999;
+}
+
+
+.left-side {
+    height: 100%;
+    width: 55%;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.basic-information {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+
+}
+
+.basic-infocard {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: var(--Hauptfarbe);
+}
+
+.numbers-info {
+    font-weight: bold;
+}
+
+.pokemon-names-info {
+    font-size: 1.8rem;
+
+}
+
+.elements-infocard {
+    height: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: end;
+
+}
+
+.type-infocard {
+    text-align: center;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 20px 5px 20px;
+    border: 2px solid var(--Hauptfarbe);
+
+
+}
+
+.image-frame-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 100%;
+    border-radius: 15px;
+    border: 2px solid var(--Hauptfarbe);
+    box-shadow: var(--boxshadow-hover);
+}
+
+.image-frame-info .pokemon-img-style-info {
+    object-fit: cover;
+    width: 90%;
+
+
+}
+
+.right-side {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 55%;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.reiter-container{
+    display: flex;
+    gap: 30px;
+}
 
 /* js classes */
 /* element colors */
@@ -344,30 +495,3 @@ header {
 .bug {
     background-color: var(--element-bug);
 }
-
-/* Information card */
-#information-card {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.579);
-    z-index: 10;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#information-container {
-    width: 70%;
-    height: 70%;
-    border-radius: 15px;
-    border: 2px solid var(--Hauptfarbe);
-    background-color:  rgb(240, 240, 240)
-}
-
-/* test */

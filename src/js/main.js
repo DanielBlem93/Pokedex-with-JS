@@ -1,11 +1,13 @@
 let currentPokemon;
 let currentPokemon2;
 
+
 function init(){
     render()
 }
 
 async function render() {
+
     pokedex.innerHTML = '';
 
      for (let i = 1; i < 50; i++) {
@@ -13,12 +15,11 @@ async function render() {
         await loadPokemon(i)
 
         let pokedex = document.getElementById('pokedex')
-
         pokedex.innerHTML += /*html*/` 
 
-        <div onclick="openPopup()" class="pokemon-card bg${i}">
+        <div onclick="togglePopup('flex'), renderInformationCard(${i})" class="pokemon-card bg${i}">
             <div class="image-frame">
-                <img class="pokemon-img-style" id="pokemon-img${i}" src="">
+                <img class="pokemon-img-style pokemon-img${i}" src="">
             </div>
     
             <div class="info-container">
@@ -36,26 +37,15 @@ async function render() {
                     </div>
                 </div>
             </div>
-            <div class="backside"></div>
         </div>`
-        renderMainData(i)
+        renderMainData(i,0)
     }
-    addInformationCard()
 }
 
-function addInformationCard(){
-    let body = document.getElementsByTagName('body')[0]
-    body += /*html*/`
-        <div onclick="closePopup()" id="information-card" style="display: none;">
-            <div id="information-container">
-            </div>
-        </div>
-    `
-}
-
-function renderMainData(i){
-    renderPokemonInfo(i)
-    setElement(i)
+function renderMainData(i,j){
+    renderPokemonInfo(i,j)
+    setElement(i,j)
+ 
 }
 
 async function loadPokemon(i) {
@@ -71,60 +61,101 @@ async function loadPokemon(i) {
 
 }
 
-async function renderPokemonInfo(i) {
-    let id = document.getElementsByClassName(`pokemon-number${i}`)[0]
-    let image = document.getElementById(`pokemon-img${i}`)
-    let name = document.getElementsByClassName(`pokemon-name${i}`)[0]
+async function renderPokemonInfo(i,j) {
+    let id = document.getElementsByClassName(`pokemon-number${i}`)[j]
+    let image = document.getElementsByClassName(`pokemon-img${i}`)[j]
+    let name = document.getElementsByClassName(`pokemon-name${i}`)[j]
     
     id.innerHTML =  currentPokemon.id
     image.src =  currentPokemon['sprites']['other']['official-artwork']['front_default']
     name.innerHTML =  currentPokemon2['names']['5']['name']
 }
 
-function setElement(i){
+function setElement(i,j){
 
     let element1 = document.getElementsByClassName(`element1${i}`)
     let element2 = document.getElementsByClassName(`element2${i}`)
     let type1 =  currentPokemon['types'][0]['type']['name']
     let type2
 
-    element1[0].innerHTML = type1
+    element1[j].innerHTML = type1
 
     if(currentPokemon['types'][1]){
         type2 = currentPokemon['types'][1]['type']['name']
-        element2[0].innerHTML = type2
+        element2[j].innerHTML = type2
     }else{
-        element2[0].style.display = 'none'
+        element2[j].style.display = 'none'
     }
-  changeBackgroundColor(i)
+  changeBackgroundColor(i,j)
 }
 
-function changeBackgroundColor(i){
+function changeBackgroundColor(i,j){
     let pokemonCard = document.getElementsByClassName(`bg${i}`)
-    let mainElement = document.getElementsByClassName(`element1${i}`)[0].innerHTML
-    let secondElement = document.getElementsByClassName(`element2${i}`)[0].innerHTML
+    let mainElement = document.getElementsByClassName(`element1${i}`)[j].innerHTML
+    let secondElement = document.getElementsByClassName(`element2${i}`)[j].innerHTML
     
-    let element1= document.getElementsByClassName(`element1${i}`)[0]
-    let element2= document.getElementsByClassName(`element2${i}`)[0]
+    let element1= document.getElementsByClassName(`element1${i}`)[j]
+    let element2= document.getElementsByClassName(`element2${i}`)[j]
 
-    pokemonCard[0].classList.add(`${mainElement}`) 
+    pokemonCard[j].classList.add(`${mainElement}`) 
     element1.classList.add(`${mainElement}`) 
     element2.classList.add(`${secondElement}`) 
 
 }
-    
-function openPopup(){
-    let informationCard = document.getElementById('information-card')
-    informationCard.style.display = 'flex'
-}
-function closePopup(){
-    let informationCard = document.getElementById('information-card')
-    informationCard.style.display = 'none'
-}
 
+function togglePopup(display){
+    let informationCard = document.getElementById('information-card')
+    informationCard.style.display = `${display}`
+}
+  
 function doNotClose(event){
 event.stopPropagation()
 }
+
+async function renderInformationCard(i){
+
+let informationContainer = document.getElementById('information-container')
+informationContainer.innerHTML ="";
+informationContainer.innerHTML = /*html*/`
+
+      
+    <img onclick="togglePopup('none')" id="close" src="src/img/close.png">
+    <div class="pokemon-info">
+        <div class="left-side">
+            
+            <div class="basic-information">
+                <div class="basic-infocard">
+                    <p>#<span class="pokemon-number${i} numbers numbers-info">000</span></p>
+                    <p class="pokemon-name${i} pokemon-names pokemon-names-info">Name</p>
+                </div>  
+
+                <div class="elements-infocard">
+                    <div class="elements type-infocard element1${i}">Element1</div>
+                    <div class="elements type-infocard element2${i}">Element2</div>
+                </div>
+      
+            </div>
+            
+            <div class="image-frame-info bg${i}">
+                    <img class="pokemon-img-style-info pokemon-img${i}" src="">
+                </div>
+        </div>
+        <div class="right-side">
+            <div class="reiter-container">
+                <span class="reiter">Info</span>
+                <span class="reiter">Details</span>
+                <span class="reiter">Attribute</span>
+                </div>
+        </div>
+    </div>
+    
+`
+await loadPokemon(i)
+renderMainData(i,1)
+
+}
+
+
 
 
 
