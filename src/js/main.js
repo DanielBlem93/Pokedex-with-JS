@@ -5,10 +5,8 @@ function init(){
     render()
 }
 
-
 async function render() {
-
-    // pokedex.innerHTML = '';
+    pokedex.innerHTML = '';
 
      for (let i = 1; i < 50; i++) {
 
@@ -18,7 +16,7 @@ async function render() {
 
         pokedex.innerHTML += /*html*/` 
 
-        <div class="pokemon-card bg${i}">
+        <div onclick="openPopup()" class="pokemon-card bg${i}">
             <div class="image-frame">
                 <img class="pokemon-img-style" id="pokemon-img${i}" src="">
             </div>
@@ -40,12 +38,25 @@ async function render() {
             </div>
             <div class="backside"></div>
         </div>`
-        renderPokemonInfo(i)
-        setElement(i)
+        renderMainData(i)
     }
+    addInformationCard()
 }
 
+function addInformationCard(){
+    let body = document.getElementsByTagName('body')[0]
+    body += /*html*/`
+        <div onclick="closePopup()" id="information-card" style="display: none;">
+            <div id="information-container">
+            </div>
+        </div>
+    `
+}
 
+function renderMainData(i){
+    renderPokemonInfo(i)
+    setElement(i)
+}
 
 async function loadPokemon(i) {
     let url = `https://pokeapi.co/api/v2/pokemon/${i}`
@@ -65,14 +76,10 @@ async function renderPokemonInfo(i) {
     let image = document.getElementById(`pokemon-img${i}`)
     let name = document.getElementsByClassName(`pokemon-name${i}`)[0]
     
-
     id.innerHTML =  currentPokemon.id
     image.src =  currentPokemon['sprites']['other']['official-artwork']['front_default']
     name.innerHTML =  currentPokemon2['names']['5']['name']
-    
-
 }
-
 
 function setElement(i){
 
@@ -90,14 +97,7 @@ function setElement(i){
         element2[0].style.display = 'none'
     }
   changeBackgroundColor(i)
-
-
 }
-
-
-// 'normal' 'grass' 'poisen' 'fire' 
-// 'flying' 'water' 'bug' 'electric' 'ground' 'fairy' 
-// 'fighting' 'psychic' 'rock' 'steel' 'ice' 'ghost' 'dragon'
 
 function changeBackgroundColor(i){
     let pokemonCard = document.getElementsByClassName(`bg${i}`)
@@ -113,17 +113,27 @@ function changeBackgroundColor(i){
 
 }
     
-
-
-
-
-
-
-async function checkElement(type){
-
-
+function openPopup(){
+    let informationCard = document.getElementById('information-card')
+    informationCard.style.display = 'flex'
+}
+function closePopup(){
+    let informationCard = document.getElementById('information-card')
+    informationCard.style.display = 'none'
 }
 
+function doNotClose(event){
+event.stopPropagation()
+}
+
+
+
+
+
+
+// 'normal' 'grass' 'poisen' 'fire' 
+// 'flying' 'water' 'bug' 'electric' 'ground' 'fairy' 
+// 'fighting' 'psychic' 'rock' 'steel' 'ice' 'ghost' 'dragon'
 
 // function changeBgColor(i, color){
 // let pokemonCard = document.getElementsByClassName(`bg${i}`)[0];
@@ -141,8 +151,6 @@ async function checkElement(type){
 //     id.innerHTML =  currentPokemon.id
 //     image.src =  currentPokemon['sprites']['other']['official-artwork']['front_default']
 //     name.innerHTML =  currentPokemon2['names']['5']['name']
-
-    
 
 // }
  

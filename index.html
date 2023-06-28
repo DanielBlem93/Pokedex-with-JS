@@ -33,7 +33,7 @@
 
 
     <div id="pokedex">
-        <div class="test pokemon-card bg${i}">
+        <div onclick="openPopup(i)" class="test pokemon-card bg${i}">
             <div class="image-frame">
                 <img class="pokemon-img-style" id="pokemon-img${i}" src="">
             </div>
@@ -56,7 +56,7 @@
             <div class="backside"></div>
         </div>
     </div>
-    <div id="information-card">
+    <div onclick="closePopup()" id="information-card" style="display: none;">
         <div id="information-container">
 
         </div>
