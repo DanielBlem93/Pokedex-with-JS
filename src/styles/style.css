@@ -7,10 +7,11 @@
 :root {
     font-family: "OpenSans", sans-serif;
     font-size: 20px;
+
+
     --Hauptfarbe: rgb(58, 112, 160);
     --background-grey: rgba(8, 8, 8, 0.096);
     --boxshadow-hover: -10px 7px 13px -7px var(--Hauptfarbe), 10px 7px 13px -7px var(--Hauptfarbe), -10px 7px 13px -7px rgba(0, 0, 0, 0);
-
 
     --element-normal: #AAA878;
     --element-fire: #F07F2F;
@@ -303,31 +304,43 @@ header {
     justify-content: center;
 }
 
+#background-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.03;
+
+}
+
+#info-container-header {
+    width: 100%;
+    height: 125px;
+    background-color: rgba(58, 112, 160, 0.325);
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    border-bottom:  rgba(58, 112, 160, 0.4) 2px  solid;
+
+}
+
 .pokemon-info {
     width: 95%;
     height: 90%;
     display: flex;
     align-items: center;
     z-index: 19;
+    position: relative;
+    z-index: 2;
 }
 
-.pokemon-info :before {
-    content: "";
-    background-image: url(../img/Poké_Ball_icon.svg.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: absolute;
-
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    opacity: 0.002;
-    z-index: -1;
-
-}
 
 #close {
     width: 32px;
@@ -404,25 +417,70 @@ header {
     box-shadow: var(--boxshadow-hover);
 }
 
-.image-frame-info .pokemon-img-style-info {
+.pokemon-img-style-info {
     object-fit: cover;
     width: 90%;
-
-
 }
 
 .right-side {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     height: 100%;
     width: 55%;
-    border: 1px solid rgb(0, 0, 0);
+    /* border: 2px solid black; */
+    z-index: 11;
+    color: var(--Hauptfarbe);
+    gap: 64px;
 }
 
-.reiter-container{
+.reiter-container {
     display: flex;
-    gap: 30px;
+    justify-content: space-between;
+    align-items: end;
+    gap: 50px;
+    font-weight: 600;
+    height: 81px;
+    width: 75%;
 }
+
+.reiter {
+    text-decoration: none;
+    color: var(--Hauptfarbe);
+    opacity: 0.5;
+    cursor: pointer;
+    font-weight: bolder;
+
+    
+}
+.reiter:hover{
+    opacity: 1;
+}
+.reiter:focus{
+    opacity: 1;
+}
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 96%;
+    border-radius: 15px;
+
+    background-color:  rgba(8, 8, 8, 0.04);
+    color: var(--Hauptfarbe);
+    
+}
+.content-box{
+
+   height: 90%;
+   width: 90%;
+}
+
+.description{
+    font-weight: bold;
+}
+
 
 /* js classes */
 /* element colors */

@@ -89,6 +89,15 @@ function setElement(i,j){
   changeBackgroundColor(i,j)
 }
 
+async function loadDescriptions(){
+    let description = currentPokemon2['flavor_text_entries']['25']['flavor_text']
+    let description2 = currentPokemon2['flavor_text_entries']['58']['flavor_text']
+    let content =document.getElementsByClassName ('description')[0]
+
+    content.innerHTML = ""
+    content.innerHTML = description +" "+ description2
+}
+
 function changeBackgroundColor(i,j){
     let pokemonCard = document.getElementsByClassName(`bg${i}`)
     let mainElement = document.getElementsByClassName(`element1${i}`)[j].innerHTML
@@ -120,7 +129,9 @@ informationContainer.innerHTML = /*html*/`
 
       
     <img onclick="togglePopup('none')" id="close" src="src/img/close.png">
+    <div id="info-container-header"></div>
     <div class="pokemon-info">
+        <img id="background-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
         <div class="left-side">
             
             <div class="basic-information">
@@ -142,9 +153,16 @@ informationContainer.innerHTML = /*html*/`
         </div>
         <div class="right-side">
             <div class="reiter-container">
-                <span class="reiter">Info</span>
-                <span class="reiter">Details</span>
-                <span class="reiter">Attribute</span>
+          <a href="#" class="reiter">Info</a>
+          <a href="#" class="reiter">Details</a>
+          <a href="#" class="reiter">Attribute</a>
+            </div>
+          <div class="content">
+            <div style="display: unset;" class="description content-box" ></div>
+            <div style="display: none;" class="details content-box"></div>
+            <div style="display: none;" class="attribute content-box"></div>
+          </div>
+          
                 </div>
         </div>
     </div>
@@ -152,7 +170,7 @@ informationContainer.innerHTML = /*html*/`
 `
 await loadPokemon(i)
 renderMainData(i,1)
-
+loadDescriptions()
 }
 
 
