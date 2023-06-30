@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="src/styles/style.css">
+    <script src="src/js/template-script.js"></script>
+    
 
 </head>
 
@@ -22,7 +24,7 @@
         <p>Gib den Namen deines gewünschten Pokemon ein!</p>
         <div id="search">
             <input placeholder="" type="text" name="search" id="search-input">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none"
+            <svg onclick="search()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none"
                 stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="14" cy="14" r="9" />
                 <line x1="22" y1="22" x2="29" y2="29" />
@@ -86,8 +88,9 @@
 
             </div>
 
+           
     </main>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
     <script src="src/js/main.js"></script>
 </body>
 

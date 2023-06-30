@@ -1,14 +1,19 @@
 let currentPokemon;
 let currentPokemon2;
-
+let statData;
+let pokemoncounter = 25
+let searchCounter = 25
+let pokemons = []
+let resetCounter
 
 // Initalise all functions onload 
 function init() {
     render()
 }
 // renders the HTML cards
-let pokemoncounter = 50
-async function render() {
+
+
+async function render(i) {
 
     pokedex.innerHTML = '';
 
@@ -19,7 +24,7 @@ async function render() {
         let pokedex = document.getElementById('pokedex')
         pokedex.innerHTML += /*html*/` 
 
-        <div onclick="togglePopup('flex'), renderInformationCard(${i}),toggleNoScroll('add')" class="pokemon-card bg${i}">
+        <div  id="${i}" onclick="togglePopup('flex'), renderInformationCard(${i}),toggleNoScroll('add')" class="pokemon-card bg${i}">
             <div class="image-frame">
                 <img class="pokemon-img-style pokemon-img${i}" src="">
             </div>
@@ -58,8 +63,10 @@ async function loadPokemon(i) {
 
     currentPokemon = await response.json();
     currentPokemon2 = await response2.json();
+    pokemons.push(currentPokemon2['names']['5']['name'])
     console.log('Das Pokemon ist', currentPokemon)
     console.log('Siehe da:', currentPokemon2)
+
 }
 
 // Gives the Pokemoncard the Name, ID and the Image
@@ -114,8 +121,7 @@ async function renderInformationCard(i) {
     let informationContainer = document.getElementById('information-container')
     informationContainer.innerHTML = "";
     informationContainer.innerHTML = /*html*/`
-
-      
+              
     <img onclick="togglePopup('none'), toggleNoScroll('remove')" id="close" src="src/img/close.png">
     <div id="info-container-header"></div>
     <div class="pokemon-info">
@@ -141,14 +147,21 @@ async function renderInformationCard(i) {
         </div>
         <div class="right-side">
             <div class="reiter-container">
-          <a href="#" class="reiter">Info</a>
-          <a href="#" class="reiter">Details</a>
-          <a href="#" class="reiter">Attribute</a>
+          <a onclick="activateReiter('unset','none','none')" href="#${i}" class="reiter">Info</a>
+          <a onclick="activateReiter('none','flex','none'),loadDetails()" href="#${i}" class="reiter">Details</a>
+          <a onclick="activateReiter('none','none','unset'),generateChart()" href="#${i}" class="reiter">Attribute</a>
             </div>
           <div class="content">
-            <div style="display: unset;" class="description content-box" ></div>
-            <div style="display: none;" class="details content-box"></div>
-            <div style="display: none;" class="attribute content-box"></div>
+            <div style="display: unset;" class="description content-box" >Beschreibung</div>
+            <div  style="display: none;" class="details content-box">
+                <div><p><b>Kategorie:</b></p> <p class="category"></p></div>
+                <div><p><b>Größe:</b></p> <p class="size"></p></div>
+                <div><p><b>Gewicht:</b></p> <p class="weight"></p></div>
+          
+            </div>
+            <div style="display: none;" class="attribute content-box">
+            <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
           </div>
           
                 </div>
@@ -162,13 +175,155 @@ async function renderInformationCard(i) {
 }
 
 // loads the Description text for the Pokemon and add the HTML
-async function loadDescriptions() {
+function loadDescriptions() {
     let description = currentPokemon2['flavor_text_entries']['25']['flavor_text']
     let content = document.getElementsByClassName('description')[0]
 
     content.innerHTML = ""
     content.innerHTML = description
 }
+
+function activateReiter(action1, action2, action3) {
+    let description = document.getElementsByClassName('description')[0]
+    let details = document.getElementsByClassName('details')[0]
+    let attribute = document.getElementsByClassName('attribute')[0]
+
+    description.style.display = `${action1}`
+    description.style.display = `${action1}`
+    details.style.display = `${action2}`
+    attribute.style.display = `${action3}`
+}
+
+function loadDetails() {
+
+    let pokemonType = currentPokemon2['genera']['4']['genus']
+    let pokemonHeight = currentPokemon['height'] / 10 + "m"
+    let pokemonWeight = currentPokemon['weight'] / 10 + "KG"
+
+    let category = document.getElementsByClassName('category')[0]
+    let size = document.getElementsByClassName('size')[0]
+    let weight = document.getElementsByClassName('weight')[0]
+
+    category.innerHTML = pokemonType
+    size.innerHTML = pokemonHeight
+    weight.innerHTML = pokemonWeight
+
+}
+function generateChart() {
+    loadStats()
+
+    let ctx = document.getElementById('myChart')
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Angriff', 'Verteidigung', 'Spezialangriff', 'KP', 'Spezialverteidigung', 'Geschwindigkeit'],
+            datasets: [{
+                label: 'Basiswerte',
+                data: statData,
+                borderWidth: 1,
+                backgroundColor: [
+                    'rgba(255, 0, 0, 0.3)',
+                    'rgba(17, 0, 255, 0.3)',
+                    'rgba(0, 238, 255, 0.3)',
+                    'rgba(0, 255, 13, 0.25)',
+                    'rgba(212, 0, 255, 0.3)',
+                    'rgba(255, 174, 0, 0.3)',
+                ],
+                borderColor: [
+                    'rgba(255, 0, 0, 0.8)',
+                    'rgba(17, 0, 255, 0.8)',
+                    'rgba(0, 238, 255, 0.8)',
+                    'rgba(0, 255, 13, 1)',
+                    'rgba(212, 0, 255, 0.8)',
+                    'rgba(255, 174, 0, 0.8)',
+                ]
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+}
+
+function loadStats() {
+
+    let hp = currentPokemon['stats']['0']['base_stat']
+    let atk = currentPokemon['stats']['1']['base_stat']
+    let def = currentPokemon['stats']['2']['base_stat']
+    let spezialAtk = currentPokemon['stats']['3']['base_stat']
+    let spezialDef = currentPokemon['stats']['4']['base_stat']
+    let speed = currentPokemon['stats']['5']['base_stat']
+
+    statData = [hp, atk, def, spezialAtk, spezialDef, speed]
+
+}
+
+function search() {
+
+    let input = document.getElementById('search-input').value
+    input = input;
+    console.log(input)
+
+
+    for (let i = 0; i < pokemons.length; i++) {
+        let pokemon = pokemons[i];
+
+        if (pokemon.includes(input)) {
+            let number = pokemons.indexOf(input)
+            number++
+            pokemoncounter = 2
+            render()
+            loadPokemon(number)
+
+            console.log('match')
+            break
+
+        } else {
+            console.log('nomatch')
+        }
+
+    }
+    resetCounter = 1
+
+}
+document.getElementById('search-input').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        search()
+    }
+});
+document.getElementById('search-input').addEventListener('keyup', function (e) {
+    console.log('Here we go', e)
+    let input = document.getElementById('search-input').value
+    if (input.length == 0 && resetCounter == 1) {
+        reset()
+        resetCounter = 0
+    }
+});
+
+async function reset() {
+    pokemoncounter = searchCounter
+
+    render()
+}
+
+
+
+
+
+
+
+
+
 
 // Handels the function to close and open the Information Card
 function togglePopup(display) {
@@ -186,4 +341,3 @@ function toggleNoScroll(action) {
     body.classList[action]('noscroll')
 
 }
-

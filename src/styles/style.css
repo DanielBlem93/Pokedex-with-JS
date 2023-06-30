@@ -7,6 +7,7 @@
 :root {
     font-family: "OpenSans", sans-serif;
     font-size: 20px;
+    scroll-behavior: smooth;
 
 
     --Hauptfarbe: rgb(58, 112, 160);
@@ -41,10 +42,7 @@ p {
     box-sizing: border-box;
 
 }
-.noscroll{
-    height: 100%;
-    overflow: hidden;
-}
+
 
 /* Head-section */
 header {
@@ -168,10 +166,10 @@ header {
 
 .image-frame {
     display: flex;
-    align-items: center;
+
     justify-content: center;
     width: 90%;
-    height: 90%;
+    height: 100%;
     overflow: hidden;
 
 }
@@ -193,7 +191,6 @@ header {
 
 }
 
-
 .pokemon-img-style {
     width: 200px;
     height: 300px;
@@ -212,7 +209,7 @@ header {
     border-bottom-right-radius: 10px;
 
     min-height: 120px;
-    margin-top: 45px;
+
     width: 100%;
 
     display: flex;
@@ -266,9 +263,7 @@ header {
 
 /* For animations */
 .pokemon-card:hover .pokemon-img-style {
-    width: 220px;
-    height: 220px;
-
+    width: 240px;
     transition: 125ms ease-in-out;
 
 }
@@ -331,7 +326,7 @@ header {
     top: 0px;
     bottom: 0;
     left: 0;
-    border-bottom:  rgba(58, 112, 160, 0.4) 2px  solid;
+    border-bottom: rgba(58, 112, 160, 0.4) 2px solid;
 
 }
 
@@ -388,7 +383,6 @@ header {
 
 .pokemon-names-info {
     font-size: 1.8rem;
-
 }
 
 .elements-infocard {
@@ -396,7 +390,6 @@ header {
     display: flex;
     gap: 20px;
     align-items: end;
-
 }
 
 .type-infocard {
@@ -406,8 +399,6 @@ header {
     border: none;
     padding: 5px 20px 5px 20px;
     border: 2px solid var(--Hauptfarbe);
-
-
 }
 
 .image-frame-info {
@@ -455,15 +446,17 @@ header {
     cursor: pointer;
     font-weight: bolder;
 
-    
 }
-.reiter:hover{
+
+.reiter:hover {
     opacity: 1;
 }
-.reiter:focus{
+
+.reiter:focus {
     opacity: 1;
 }
-.content{
+
+.content {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -471,19 +464,44 @@ header {
     height: 96%;
     border-radius: 15px;
 
-    background-color:  rgba(8, 8, 8, 0.04);
+    background-color: rgba(8, 8, 8, 0.04);
     color: var(--Hauptfarbe);
-    
-}
-.content-box{
 
-   height: 90%;
-   width: 90%;
 }
 
-.description{
-    font-weight: bold;
+.content-box {
+
+    height: 90%;
+    width: 90%;
 }
+
+.description {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.5rem;
+
+}
+
+.details div {
+    width: 100%;
+}
+
+.details div p {
+    display: inline-block;
+    font-weight: 500;
+}
+.details div b {
+    font-weight: 700;
+}
+
+
+
 
 
 /* js classes */
@@ -556,4 +574,10 @@ header {
 
 .bug {
     background-color: var(--element-bug);
+}
+
+/* no scroll function */
+.noscroll {
+    height: 100%;
+    overflow: hidden;
 }
