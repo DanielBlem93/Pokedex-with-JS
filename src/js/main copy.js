@@ -3,22 +3,21 @@ let currentPokemon2;
 let statData;
 let pokemoncounter = 25
 let searchCounter = 25
-let pokemons1 = ['MissingNo']
-let pokemons2 = ['MissingNo']
+let pokemons = []
 let resetCounter
 
 // Initalise all functions onload 
 function init() {
-    render(1)
+    render()
 }
 // renders the HTML cards
 
 
-async function render(start) {
+async function render(i) {
 
     pokedex.innerHTML = '';
 
-    for (let i = start; i <= pokemoncounter; i++) {
+    for (let i = 1; i < pokemoncounter; i++) {
 
         await loadPokemon(i)
 
@@ -64,25 +63,21 @@ async function loadPokemon(i) {
 
     currentPokemon = await response.json();
     currentPokemon2 = await response2.json();
-    pokemons1.push(currentPokemon)
-    pokemons2.push(currentPokemon2)
+    pokemons.push(currentPokemon2['names']['5']['name'])
     console.log('Das Pokemon ist', currentPokemon)
     console.log('Siehe da:', currentPokemon2)
-    console.log(pokemons1, pokemons2)
 
 }
 
-
 // Gives the Pokemoncard the Name, ID and the Image
 async function renderPokemonInfo(i, j) {
-
     let id = document.getElementsByClassName(`pokemon-number${i}`)[j]
     let image = document.getElementsByClassName(`pokemon-img${i}`)[j]
     let name = document.getElementsByClassName(`pokemon-name${i}`)[j]
 
-    id.innerHTML = pokemons1[i]['id']
-    image.src = pokemons1[i]['sprites']['other']['official-artwork']['front_default']
-    name.innerHTML = pokemons2[i]['names']['5']['name']
+    id.innerHTML = currentPokemon.id
+    image.src = currentPokemon['sprites']['other']['official-artwork']['front_default']
+    name.innerHTML = currentPokemon2['names']['5']['name']
 }
 
 // Gives the Pokemon there Elements 
@@ -90,13 +85,13 @@ function setElement(i, j) {
 
     let element1 = document.getElementsByClassName(`element1${i}`)
     let element2 = document.getElementsByClassName(`element2${i}`)
-    let type1 = pokemons1[i]['types'][0]['type']['name']
+    let type1 = currentPokemon['types'][0]['type']['name']
     let type2
 
     element1[j].innerHTML = type1
 
-    if (pokemons1[i]['types'][1]) {
-        type2 = pokemons1[i]['types'][1]['type']['name']
+    if (currentPokemon['types'][1]) {
+        type2 = currentPokemon['types'][1]['type']['name']
         element2[j].innerHTML = type2
     } else {
         element2[j].style.display = 'none'
@@ -153,8 +148,8 @@ async function renderInformationCard(i) {
         <div class="right-side">
             <div class="reiter-container">
           <a onclick="activateReiter('unset','none','none')" href="#${i}" class="reiter">Info</a>
-          <a onclick="activateReiter('none','flex','none'),loadDetails(${i})" href="#${i}" class="reiter">Details</a>
-          <a onclick="activateReiter('none','none','unset'),generateChart(${i})" href="#${i}" class="reiter">Attribute</a>
+          <a onclick="activateReiter('none','flex','none'),loadDetails()" href="#${i}" class="reiter">Details</a>
+          <a onclick="activateReiter('none','none','unset'),generateChart()" href="#${i}" class="reiter">Attribute</a>
             </div>
           <div class="content">
             <div style="display: unset;" class="description content-box" >Beschreibung</div>
@@ -176,12 +171,12 @@ async function renderInformationCard(i) {
 `
     await loadPokemon(i)
     renderMainData(i, 1)
-    loadDescriptions(i)
+    loadDescriptions()
 }
 
 // loads the Description text for the Pokemon and add the HTML
-function loadDescriptions(i) {
-    let description = pokemons2[i]['flavor_text_entries']['25']['flavor_text']
+function loadDescriptions() {
+    let description = currentPokemon2['flavor_text_entries']['25']['flavor_text']
     let content = document.getElementsByClassName('description')[0]
 
     content.innerHTML = ""
@@ -199,11 +194,11 @@ function activateReiter(action1, action2, action3) {
     attribute.style.display = `${action3}`
 }
 
-function loadDetails(i) {
+function loadDetails() {
 
-    let pokemonType = pokemons2[i]['genera']['4']['genus']
-    let pokemonHeight = pokemons1[i]['height'] / 10 + "m"
-    let pokemonWeight = pokemons1[i]['weight'] / 10 + "KG"
+    let pokemonType = currentPokemon2['genera']['4']['genus']
+    let pokemonHeight = currentPokemon['height'] / 10 + "m"
+    let pokemonWeight = currentPokemon['weight'] / 10 + "KG"
 
     let category = document.getElementsByClassName('category')[0]
     let size = document.getElementsByClassName('size')[0]
@@ -214,8 +209,8 @@ function loadDetails(i) {
     weight.innerHTML = pokemonWeight
 
 }
-function generateChart(i) {
-    loadStats(i)
+function generateChart() {
+    loadStats()
 
     let ctx = document.getElementById('myChart')
     new Chart(ctx, {
@@ -260,14 +255,14 @@ function generateChart(i) {
     });
 }
 
-function loadStats(i) {
+function loadStats() {
 
-    let hp = pokemons1[i]['stats']['0']['base_stat']
-    let atk = pokemons1[i]['stats']['1']['base_stat']
-    let def = pokemons1[i]['stats']['2']['base_stat']
-    let spezialAtk = pokemons1[i]['stats']['3']['base_stat']
-    let spezialDef = pokemons1[i]['stats']['4']['base_stat']
-    let speed = pokemons1[i]['stats']['5']['base_stat']
+    let hp = currentPokemon['stats']['0']['base_stat']
+    let atk = currentPokemon['stats']['1']['base_stat']
+    let def = currentPokemon['stats']['2']['base_stat']
+    let spezialAtk = currentPokemon['stats']['3']['base_stat']
+    let spezialDef = currentPokemon['stats']['4']['base_stat']
+    let speed = currentPokemon['stats']['5']['base_stat']
 
     statData = [hp, atk, def, spezialAtk, spezialDef, speed]
 
@@ -276,30 +271,29 @@ function loadStats(i) {
 function search() {
 
     let input = document.getElementById('search-input').value
-    input = input.toLowerCase();
+    input = input;
     console.log(input)
 
-    for (let i = 1; i < pokemons2.length; i++) {
-        let pokemon = pokemons2[i]['names']['5']['name'];
-        pokemon = pokemon.toLowerCase()
+
+    for (let i = 0; i < pokemons.length; i++) {
+        let pokemon = pokemons[i];
+
         if (pokemon.includes(input)) {
+            let number = pokemons.indexOf(input)
+            number++
+            pokemoncounter = 2
+            render()
+            loadPokemon(number)
 
-            let number = pokemons2[i]['id']
-
-            pokemoncounter = number
-            render(number)
-
-
-            resetCounter = 1
+            console.log('match')
             break
+
         } else {
-            let pokedex = document.getElementById('pokedex')
-
-            pokedex.innerHTML = ''
-            pokedex.innerHTML += `<h1>Pokemon nicht gefunden</h2>`
+            console.log('nomatch')
         }
-    }
 
+    }
+    resetCounter = 1
 
 }
 document.getElementById('search-input').addEventListener('keypress', function (e) {
@@ -316,11 +310,10 @@ document.getElementById('search-input').addEventListener('keyup', function (e) {
     }
 });
 
-function reset() {
+async function reset() {
     pokemoncounter = searchCounter
-    document.getElementById('search-input').value = ''
-    render(1)
 
+    render()
 }
 
 
