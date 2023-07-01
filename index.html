@@ -20,8 +20,8 @@
 
     </header>
     <div id="headline">
-        <h1>Pokèdex</h1>
-        <p>Gib den Namen deines gewünschten Pokemon ein!</p>
+        <h1>Pokédex</h1>
+        <p>Gib den Namen deines gewünschten Pokemons ein!</p>
         <div id="search">
             <input oninput="search()" placeholder="" type="text" name="search" id="search-input">
             <img onclick="reset()" id="reset-button" src="src/img/rotate-left-circular-arrow-interface-symbol.png"
@@ -80,8 +80,19 @@
                     <div class="right-side"></div>
 
                 </div>
+
             </div>
+        </div>
+
     </main>
+
+    <div id="loading-screen-container" style="display: none;">
+        <div id="loading-screen">
+            <img id="loading-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
+            <p>Wird geladen...</p>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
     <script src="src/js/main.js"></script>
 </body>

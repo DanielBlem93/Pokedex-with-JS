@@ -1,7 +1,7 @@
 let currentPokemon;
 let currentPokemon2;
 let statData;
-let pokemoncounter = 25
+let pokemoncounter = 151
 let searchCounter = 25
 let pokemons1 = ['MissingNo']
 let pokemons2 = ['MissingNo']
@@ -10,6 +10,8 @@ let resetCounter
 // Initalise all functions onload 
 function init() {
     render(1)
+    toggleLoading('flex', 'add')
+    
 }
 // renders the HTML cards
 
@@ -48,6 +50,7 @@ async function render(start) {
         </div>`
         renderMainData(i, 0)
     }
+    toggleLoading('none','remove')
 }
 // Fills the HTML Cards with all basic Data
 function renderMainData(i, j) {
@@ -347,4 +350,10 @@ function toggleNoScroll(action) {
     let body = document.getElementsByTagName('body')[0]
     body.classList[action]('noscroll')
 
+}
+
+function toggleLoading(action,scroll) {
+    let animation = document.getElementById('loading-screen-container')
+    animation.style.display = `${action}`
+    toggleNoScroll(`${scroll}`)
 }
