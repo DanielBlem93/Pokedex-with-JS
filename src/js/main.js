@@ -4,7 +4,7 @@ let statData;
 let pokemoncounter = 20
 let pokemons1 = ['MissingNo']
 let pokemons2 = ['MissingNo']
-let resetCounter =0
+let resetCounter = 0
 
 // Initalise all functions onload 
 function init() {
@@ -229,14 +229,14 @@ async function renderInformationCard(i) {
             </div>
             
             <div class="image-frame-info bg${i}">
-                    <img class="pokemon-img-style-info pokemon-img${i}" src="">
-                </div>
+                <img class="pokemon-img-style-info pokemon-img${i}" src="">
+            </div>
         </div>
         <div class="right-side">
             <div class="reiter-container">
-          <a onclick="activateReiter('unset','none','none')" href="#${i}" class="reiter">Info</a>
-          <a onclick="activateReiter('none','flex','none'),loadDetails(${i})" href="#${i}" class="reiter">Details</a>
-          <a onclick="activateReiter('none','none','unset'),generateChart(${i})" href="#${i}" class="reiter">Attribute</a>
+                <a onclick="activateReiter('unset','none','none'), activeReiter('add','remove','remove') " href="#${i}" class="reiter">Info</a>
+                <a onclick="activateReiter('none','flex','none'),loadDetails(${i}),activeReiter('remove','add','remove')" href="#${i}" class="reiter">Details</a>
+                <a onclick="activateReiter('none','none','unset'),generateChart(${i}),activeReiter('remove','remove','add')" href="#${i}" class="reiter">Attribute</a>
             </div>
           <div class="content">
             <div style="display: unset;" class="description content-box" >Beschreibung</div>
@@ -244,21 +244,19 @@ async function renderInformationCard(i) {
                 <div><p><b>Kategorie:</b></p> <p class="category"></p></div>
                 <div><p><b>Größe:</b></p> <p class="size"></p></div>
                 <div><p><b>Gewicht:</b></p> <p class="weight"></p></div>
-          
             </div>
             <div style="display: none;" class="attribute content-box">
-            <canvas id="myChart" width="400" height="400"></canvas>
+                <canvas id="myChart" width="400" height="400"></canvas>
             </div>
-          </div>
-          
-                </div>
         </div>
+          
+           
     </div>
-    
 `
     await loadPokemon(i)
     renderMainData(i, 1)
     loadDescriptions(i)
+    presetReiter()
 }
 
 // loads the Description text for the Pokemon and add the HTML
@@ -296,50 +294,71 @@ function loadDetails(i) {
     weight.innerHTML = pokemonWeight
 
 }
+
+let myChart = null
 function generateChart(i) {
     loadStats(i)
 
-    let ctx = document.getElementById('myChart')
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Angriff', 'Verteidigung', 'Spezialangriff', 'KP', 'Spezialverteidigung', 'Geschwindigkeit'],
-            datasets: [{
-                label: 'Basiswerte',
-                data: statData,
-                borderWidth: 1,
-                backgroundColor: [
-                    'rgba(255, 0, 0, 0.3)',
-                    'rgba(17, 0, 255, 0.3)',
-                    'rgba(0, 238, 255, 0.3)',
-                    'rgba(0, 255, 13, 0.25)',
-                    'rgba(212, 0, 255, 0.3)',
-                    'rgba(255, 174, 0, 0.3)',
-                ],
-                borderColor: [
-                    'rgba(255, 0, 0, 0.8)',
-                    'rgba(17, 0, 255, 0.8)',
-                    'rgba(0, 238, 255, 0.8)',
-                    'rgba(0, 255, 13, 1)',
-                    'rgba(212, 0, 255, 0.8)',
-                    'rgba(255, 174, 0, 0.8)',
-                ]
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+
+    if (myChart != null) {
+        
+        myChart.destroy()
+        myChart=null
+        generateChart(i)
+
+
+    } else {
+        let ctx = document.getElementById('myChart').getContext('2d')
+
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Angriff', 'Verteidigung', 'Spezialangriff', 'KP', 'Spezialverteidigung', 'Geschwindigkeit'],
+                datasets: [{
+                    label: 'Basiswerte',
+                    data: statData,
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 0, 0, 0.3)',
+                        'rgba(17, 0, 255, 0.3)',
+                        'rgba(0, 238, 255, 0.3)',
+                        'rgba(0, 255, 13, 0.25)',
+                        'rgba(212, 0, 255, 0.3)',
+                        'rgba(255, 174, 0, 0.3)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 0, 0, 0.8)',
+                        'rgba(17, 0, 255, 0.8)',
+                        'rgba(0, 238, 255, 0.8)',
+                        'rgba(0, 255, 13, 1)',
+                        'rgba(212, 0, 255, 0.8)',
+                        'rgba(255, 174, 0, 0.8)',
+                    ]
+                }]
             },
-            plugins: {
-                legend: {
-                    display: false
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 }
             }
-        }
-    });
+        });
+
+        ctx = myChart
+    }
+}
+async function clearCanvas() {
+    let ctx = document.getElementById('myChart')
+
+    const context = await ctx.getContext('2d');
+    await context.clearRect(0, 0, ctx.width, ctx.height);
 }
 
 function loadStats(i) {
@@ -367,13 +386,11 @@ function search() {
         if (pokemon.includes(input)) {
 
             let number = pokemons2[i]['id']
-
             pokemoncounter = number
             render(number)
-
-
             resetCounter = 1
             break
+
         } else {
             let pokedex = document.getElementById('pokedex')
 
@@ -396,22 +413,22 @@ document.getElementById('search-input').addEventListener('keyup', function (e) {
 function reset() {
     let input = document.getElementById('search-input').value
     if (input.length == 0 && resetCounter === 1) {
-       clear()
-    } 
-}
-
-function resetOnClick() {
-    let input = document.getElementById('search-input').value
-    if (input.length >= 1 ) {
         clear()
     }
 }
 
-function clear(){
+function resetOnClick() {
+    let input = document.getElementById('search-input').value
+    if (input.length >= 1) {
+        clear()
+    }
+}
+
+function clear() {
     pokemoncounter = 151
-        document.getElementById('search-input').value = ''
-        render(1)
-        resetCounter = 0
+    document.getElementById('search-input').value = ''
+    render(1)
+    resetCounter = 0
 }
 
 function counter(c) {
@@ -440,4 +457,19 @@ function toggleLoading(action, scroll) {
     let animation = document.getElementById('loading-screen-container')
     animation.style.display = `${action}`
     toggleNoScroll(`${scroll}`)
+}
+
+function activeReiter(action1, action2, action3) {
+    reiter1 = document.getElementsByClassName('reiter')[0]
+    reiter2 = document.getElementsByClassName('reiter')[1]
+    reiter3 = document.getElementsByClassName('reiter')[2]
+
+    reiter1.classList[action1]('active-reiter')
+    reiter2.classList[action2]('active-reiter')
+    reiter3.classList[action3]('active-reiter')
+}
+
+function presetReiter() {
+    reiter1 = document.getElementsByClassName('reiter')[0]
+    reiter1.classList.add('active-reiter')
 }

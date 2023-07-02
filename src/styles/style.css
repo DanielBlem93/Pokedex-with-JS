@@ -458,7 +458,7 @@ main {
     opacity: 1;
 }
 
-.reiter:focus {
+.active-reiter{
     opacity: 1;
 }
 
