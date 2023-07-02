@@ -1,17 +1,16 @@
 let currentPokemon;
 let currentPokemon2;
 let statData;
-let pokemoncounter = 151
-let searchCounter = 25
+let pokemoncounter = 20
 let pokemons1 = ['MissingNo']
 let pokemons2 = ['MissingNo']
-let resetCounter
+let resetCounter =0
 
 // Initalise all functions onload 
 function init() {
     render(1)
     toggleLoading('flex', 'add')
-    
+
 }
 // renders the HTML cards
 
@@ -49,13 +48,27 @@ async function render(start) {
             </div>
         </div>`
         renderMainData(i, 0)
+        loadingProgress(i)
     }
-    toggleLoading('none','remove')
+    toggleLoading('none', 'remove')
+
 }
+
+
+function loadingProgress(i) {
+    let load = document.getElementById('load')
+    let loaded = document.getElementById('loaded')
+
+    load.innerHTML = i
+    loaded.innerHTML = pokemoncounter
+}
+
 // Fills the HTML Cards with all basic Data
 function renderMainData(i, j) {
     renderPokemonInfo(i, j)
     setElement(i, j)
+    changeBackgroundColor(i, j)
+    translateToGerman()
 
 }
 // loads the data from the API, convert it to a jason and save it in currentpokemon
@@ -104,7 +117,73 @@ function setElement(i, j) {
     } else {
         element2[j].style.display = 'none'
     }
-    changeBackgroundColor(i, j)
+
+
+}
+
+
+function translateToGerman() {
+    let elements = document.getElementsByClassName(`elements`)
+
+
+    for (let i = 0; i < elements.length; i++) {
+
+        switch (elements[i].innerHTML) {
+            case "grass":
+                elements[i].innerHTML = 'Pflanze'
+                break;
+
+            case "poison":
+                elements[i].innerHTML = 'Gift'
+                break;
+
+            case "water":
+                elements[i].innerHTML = 'Wasser'
+                break;
+
+            case "bug":
+                elements[i].innerHTML = 'Käfer'
+                break;
+
+            case "flying":
+                elements[i].innerHTML = 'Flug'
+                break;
+
+            case "fire":
+                elements[i].innerHTML = 'Feuer'
+                break;
+            case "electric":
+                elements[i].innerHTML = 'Elektro'
+                break;
+            case "ground":
+                elements[i].innerHTML = 'Boden'
+                break;
+            case "fairy":
+                elements[i].innerHTML = 'Fee'
+                break;
+            case "fighting":
+                elements[i].innerHTML = 'Kampf'
+                break;
+            case "psychic":
+                elements[i].innerHTML = 'Psycho'
+                break;
+            case "rock":
+                elements[i].innerHTML = 'Gestein'
+                break;
+            case "steel":
+                elements[i].innerHTML = 'Stahl'
+                break;
+            case "ice":
+                elements[i].innerHTML = 'Eis'
+                break;
+            case "ghost":
+                elements[i].innerHTML = 'Geist'
+                break;
+            case "dragon":
+                elements[i].innerHTML = 'Drachen'
+                break;
+        }
+    }
 }
 
 // Gives the Pokemon the right backgroundcolor based on there Element
@@ -311,29 +390,34 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     }
 });
 document.getElementById('search-input').addEventListener('keyup', function (e) {
-    console.log('Here we go', e)
-    let input = document.getElementById('search-input').value
-    if (input.length == 0 && resetCounter == 1) {
-        reset()
-        resetCounter = 0
-    }
+    reset()
 });
 
 function reset() {
-    pokemoncounter = searchCounter
-    document.getElementById('search-input').value = ''
-    render(1)
-
+    let input = document.getElementById('search-input').value
+    if (input.length == 0 && resetCounter === 1) {
+       clear()
+    } 
 }
 
+function resetOnClick() {
+    let input = document.getElementById('search-input').value
+    if (input.length >= 1 ) {
+        clear()
+    }
+}
 
+function clear(){
+    pokemoncounter = 151
+        document.getElementById('search-input').value = ''
+        render(1)
+        resetCounter = 0
+}
 
-
-
-
-
-
-
+function counter(c) {
+    resetCounter = c
+    document.getElementById('search-input').value = ''
+}
 
 // Handels the function to close and open the Information Card
 function togglePopup(display) {
@@ -352,7 +436,7 @@ function toggleNoScroll(action) {
 
 }
 
-function toggleLoading(action,scroll) {
+function toggleLoading(action, scroll) {
     let animation = document.getElementById('loading-screen-container')
     animation.style.display = `${action}`
     toggleNoScroll(`${scroll}`)

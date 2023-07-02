@@ -4,7 +4,7 @@ let statData;
 let pokemoncounter = 25
 let searchCounter = 25
 let pokemons = []
-let resetCounter
+let resetCounter = 1
 
 // Initalise all functions onload 
 function init() {

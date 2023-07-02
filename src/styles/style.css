@@ -614,9 +614,9 @@ main {
 }
 
 #loading-screen p {
-    transform: rotate(0deg);
-    animation: loadingAnimation2 3s infinite linear;
+
     padding: 10px;
+    text-align: center;
 }
 
 #loading-img {

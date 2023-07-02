@@ -24,34 +24,14 @@
         <p>Gib den Namen deines gewünschten Pokemons ein!</p>
         <div id="search">
             <input oninput="search()" placeholder="" type="text" name="search" id="search-input">
-            <img onclick="reset()" id="reset-button" src="src/img/rotate-left-circular-arrow-interface-symbol.png"
+            <img onclick="resetOnClick() " id="reset-button" src="src/img/rotate-left-circular-arrow-interface-symbol.png"
                 alt="">
         </div>
     </div>
 
     <main>
         <div id="pokedex">
-            <div onclick="togglePopup('flex') " class="pokemon-card bg${i}">
-                <div class="image-frame">
-                    <img class="pokemon-img-style pokemon-img${i}" src="">
-                </div>
-
-                <div class="info-container">
-                    <div class="info-box">
-                        <div class="row">
-                            <p>
-                                <b>#</b><span class="pokemon-number${i} numbers">000</span>
-                            </p>
-                            <div class="elements element1${i}">Element1</div>
-                        </div>
-                        <div class="row">
-                            <p class="pokemon-name${i} pokemon-names">Name</p>
-
-                            <div class="elements element2${i}">Element2</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
         </div>
 
         <div onclick="togglePopup('none'),toggleNoScroll('remove')" id="information-card" style="display: none;">
@@ -89,7 +69,8 @@
     <div id="loading-screen-container" style="display: none;">
         <div id="loading-screen">
             <img id="loading-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
-            <p>Wird geladen...</p>
+            <p>Einen Moment Geduld <br> <span id="load">1</span> von <span id="loaded">151</span> Pokemon werden geladen</p>
+         
         </div>
     </div>
 
