@@ -1,3 +1,5 @@
+// ======= In this file are all main-functions to render the Pokemoncards==========
+
 let currentPokemon;
 let currentPokemon2;
 let statData;
@@ -12,9 +14,8 @@ function init() {
     toggleLoading('flex', 'add')
 
 }
+
 // renders the HTML cards
-
-
 async function render(start) {
 
     pokedex.innerHTML = '';
@@ -48,13 +49,11 @@ async function render(start) {
             </div>
         </div>`
         renderMainData(i, 0)
-        loadingProgress(i)
+       
     }
     toggleLoading('none', 'remove')
-
 }
-
-
+// counts how many pokemons are loaded in lodingscreen
 function loadingProgress(i) {
     let load = document.getElementById('load')
     let loaded = document.getElementById('loaded')
@@ -63,8 +62,9 @@ function loadingProgress(i) {
     loaded.innerHTML = pokemoncounter
 }
 
-// Fills the HTML Cards with all basic Data
+// activates all necessary functions and render all needing datas
 function renderMainData(i, j) {
+    loadingProgress(i)
     renderPokemonInfo(i, j)
     setElement(i, j)
     changeBackgroundColor(i, j)
@@ -117,73 +117,6 @@ function setElement(i, j) {
     } else {
         element2[j].style.display = 'none'
     }
-
-
-}
-
-
-function translateToGerman() {
-    let elements = document.getElementsByClassName(`elements`)
-
-
-    for (let i = 0; i < elements.length; i++) {
-
-        switch (elements[i].innerHTML) {
-            case "grass":
-                elements[i].innerHTML = 'Pflanze'
-                break;
-
-            case "poison":
-                elements[i].innerHTML = 'Gift'
-                break;
-
-            case "water":
-                elements[i].innerHTML = 'Wasser'
-                break;
-
-            case "bug":
-                elements[i].innerHTML = 'Käfer'
-                break;
-
-            case "flying":
-                elements[i].innerHTML = 'Flug'
-                break;
-
-            case "fire":
-                elements[i].innerHTML = 'Feuer'
-                break;
-            case "electric":
-                elements[i].innerHTML = 'Elektro'
-                break;
-            case "ground":
-                elements[i].innerHTML = 'Boden'
-                break;
-            case "fairy":
-                elements[i].innerHTML = 'Fee'
-                break;
-            case "fighting":
-                elements[i].innerHTML = 'Kampf'
-                break;
-            case "psychic":
-                elements[i].innerHTML = 'Psycho'
-                break;
-            case "rock":
-                elements[i].innerHTML = 'Gestein'
-                break;
-            case "steel":
-                elements[i].innerHTML = 'Stahl'
-                break;
-            case "ice":
-                elements[i].innerHTML = 'Eis'
-                break;
-            case "ghost":
-                elements[i].innerHTML = 'Geist'
-                break;
-            case "dragon":
-                elements[i].innerHTML = 'Drachen'
-                break;
-        }
-    }
 }
 
 // Gives the Pokemon the right backgroundcolor based on there Element
@@ -200,7 +133,7 @@ function changeBackgroundColor(i, j) {
     element2.classList.add(`${secondElement}`)
 }
 
-// All functions for the Popup Information Card
+//=============== All functions for the Popup Information Card =====================
 
 // Renders the HTML popup Informationcard
 async function renderInformationCard(i) {
@@ -256,7 +189,7 @@ async function renderInformationCard(i) {
     await loadPokemon(i)
     renderMainData(i, 1)
     loadDescriptions(i)
-    presetReiter()
+    activeReiter('add','remove','remove')
 }
 
 // loads the Description text for the Pokemon and add the HTML
@@ -267,7 +200,7 @@ function loadDescriptions(i) {
     content.innerHTML = ""
     content.innerHTML = description
 }
-
+// shows the content depens on the link you click
 function activateReiter(action1, action2, action3) {
     let description = document.getElementsByClassName('description')[0]
     let details = document.getElementsByClassName('details')[0]
@@ -279,6 +212,7 @@ function activateReiter(action1, action2, action3) {
     attribute.style.display = `${action3}`
 }
 
+// loads an calculates some deatails for each pokemon
 function loadDetails(i) {
 
     let pokemonType = pokemons2[i]['genera']['4']['genus']
@@ -294,18 +228,16 @@ function loadDetails(i) {
     weight.innerHTML = pokemonWeight
 
 }
-
+// generates a chart for all five stats 
 let myChart = null
 function generateChart(i) {
     loadStats(i)
 
-
     if (myChart != null) {
-        
-        myChart.destroy()
-        myChart=null
-        generateChart(i)
 
+        myChart.destroy()
+        myChart = null
+        generateChart(i)
 
     } else {
         let ctx = document.getElementById('myChart').getContext('2d')
@@ -354,13 +286,7 @@ function generateChart(i) {
         ctx = myChart
     }
 }
-async function clearCanvas() {
-    let ctx = document.getElementById('myChart')
-
-    const context = await ctx.getContext('2d');
-    await context.clearRect(0, 0, ctx.width, ctx.height);
-}
-
+// load the stats for the current pokemon and saves it in a array
 function loadStats(i) {
 
     let hp = pokemons1[i]['stats']['0']['base_stat']
@@ -371,105 +297,7 @@ function loadStats(i) {
     let speed = pokemons1[i]['stats']['5']['base_stat']
 
     statData = [hp, atk, def, spezialAtk, spezialDef, speed]
-
 }
 
-function search() {
-
-    let input = document.getElementById('search-input').value
-    input = input.toLowerCase();
-    console.log(input)
-
-    for (let i = 1; i < pokemons2.length; i++) {
-        let pokemon = pokemons2[i]['names']['5']['name'];
-        pokemon = pokemon.toLowerCase()
-        if (pokemon.includes(input)) {
-
-            let number = pokemons2[i]['id']
-            pokemoncounter = number
-            render(number)
-            resetCounter = 1
-            break
-
-        } else {
-            let pokedex = document.getElementById('pokedex')
-
-            pokedex.innerHTML = ''
-            pokedex.innerHTML += `<h1>Pokemon nicht gefunden</h2>`
-        }
-    }
 
 
-}
-document.getElementById('search-input').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        search()
-    }
-});
-document.getElementById('search-input').addEventListener('keyup', function (e) {
-    reset()
-});
-
-function reset() {
-    let input = document.getElementById('search-input').value
-    if (input.length == 0 && resetCounter === 1) {
-        clear()
-    }
-}
-
-function resetOnClick() {
-    let input = document.getElementById('search-input').value
-    if (input.length >= 1) {
-        clear()
-    }
-}
-
-function clear() {
-    pokemoncounter = 151
-    document.getElementById('search-input').value = ''
-    render(1)
-    resetCounter = 0
-}
-
-function counter(c) {
-    resetCounter = c
-    document.getElementById('search-input').value = ''
-}
-
-// Handels the function to close and open the Information Card
-function togglePopup(display) {
-    let informationCard = document.getElementById('information-card')
-    informationCard.style.display = `${display}`
-
-}
-//   Avoid that the Popup close when you click on it
-function doNotClose(event) {
-    event.stopPropagation()
-}
-// avoid scrolling while popup is open
-function toggleNoScroll(action) {
-    let body = document.getElementsByTagName('body')[0]
-    body.classList[action]('noscroll')
-
-}
-
-function toggleLoading(action, scroll) {
-    let animation = document.getElementById('loading-screen-container')
-    animation.style.display = `${action}`
-    toggleNoScroll(`${scroll}`)
-}
-
-function activeReiter(action1, action2, action3) {
-    reiter1 = document.getElementsByClassName('reiter')[0]
-    reiter2 = document.getElementsByClassName('reiter')[1]
-    reiter3 = document.getElementsByClassName('reiter')[2]
-
-    reiter1.classList[action1]('active-reiter')
-    reiter2.classList[action2]('active-reiter')
-    reiter3.classList[action3]('active-reiter')
-}
-
-function presetReiter() {
-    reiter1 = document.getElementsByClassName('reiter')[0]
-    reiter1.classList.add('active-reiter')
-}
