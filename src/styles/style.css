@@ -291,11 +291,37 @@ main {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.579);
     z-index: 10;
-
+    transition: 525ms ease-in-out;
+    opacity: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+.arrow {
+    position: absolute;
+
+    width: 100px;
+    z-index: 99999;
+    transition: 125ms ease-in-out;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.arrow:hover {
+    width: 120px;
+    opacity: 1;
+}
+
+#left-arrow {
+    transform: rotate(180deg);
+    left: 5%;
+}
+
+#right-arrow {
+    right: 5%;
+}
+
 
 #information-container {
     width: 70%;
@@ -420,7 +446,7 @@ main {
 
 .pokemon-img-style-info {
     object-fit: cover;
-    width: 90%;
+    width: 80%;
 }
 
 .right-side {
@@ -458,7 +484,7 @@ main {
     opacity: 1;
 }
 
-.active-reiter{
+.active-reiter {
     opacity: 1;
 }
 
@@ -589,11 +615,17 @@ main {
     overflow: hidden;
 }
 
+/* addAnimation() */
+
+.animation {
+    animation: blur 225ms ease-in-out;
+}
+
 #loading-screen-container {
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 1000px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -602,7 +634,7 @@ main {
 
 }
 
-#loading-screen  {
+#loading-screen {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -610,7 +642,7 @@ main {
     border: 2px solid black;
     background-color: var(--Hauptfarbe);
     border-radius: 15px;
-   
+
 }
 
 #loading-screen p {
@@ -647,21 +679,14 @@ main {
 
 }
 
-@keyframes loadingAnimation2 {
+
+@keyframes blur {
     0% {
         opacity: 1;
     }
 
-    20% {
-        opacity: 0.5;
-    }
-
-    40% {
-        opacity: 0.0;
-    }
-
-    80% {
-        opacity: 0.5;
+    50% {
+        opacity: 0;
     }
 
     100% {

@@ -3,15 +3,15 @@
 let currentPokemon;
 let currentPokemon2;
 let statData;
-let pokemoncounter = 20
+let pokemoncounter = 151
 let pokemons1 = ['MissingNo']
 let pokemons2 = ['MissingNo']
 let resetCounter = 0
 
 // Initalise all functions onload 
 function init() {
-    render(1)
     toggleLoading('flex', 'add')
+    render(1)
 
 }
 
@@ -49,7 +49,7 @@ async function render(start) {
             </div>
         </div>`
         renderMainData(i, 0)
-       
+
     }
     toggleLoading('none', 'remove')
 }
@@ -138,58 +138,63 @@ function changeBackgroundColor(i, j) {
 // Renders the HTML popup Informationcard
 async function renderInformationCard(i) {
 
-    let informationContainer = document.getElementById('information-container')
-    informationContainer.innerHTML = "";
-    informationContainer.innerHTML = /*html*/`
-              
-    <img onclick="togglePopup('none'), toggleNoScroll('remove')" id="close" src="src/img/close.png">
-    <div id="info-container-header"></div>
-    <div class="pokemon-info">
-        <img id="background-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
-        <div class="left-side">
-            
-            <div class="basic-information">
-                <div class="basic-infocard">
-                    <p>#<span class="pokemon-number${i} numbers numbers-info">000</span></p>
-                    <p class="pokemon-name${i} pokemon-names pokemon-names-info">Name</p>
-                </div>  
+    let informationCard = document.getElementById('information-card')
 
-                <div class="elements-infocard">
-                    <div class="elements type-infocard element1${i}">Element1</div>
-                    <div class="elements type-infocard element2${i}">Element2</div>
-                </div>
-      
-            </div>
+    informationCard.innerHTML = "";
+    informationCard.innerHTML = /*html*/`
+        <img onclick="doNotClose(event),nextPokemon(${i},'up')"  id="right-arrow" class="arrow" src="src/img/icons/icons8-arrow-80.png" alt="">
+        <img onclick="doNotClose(event),nextPokemon(${i},'down')" id="left-arrow" class="arrow" src="src/img/icons/icons8-arrow-80.png" alt=""> 
+       <div onclick="doNotClose(event)" id="information-container">
+        
+        <img onclick="togglePopup('none'), toggleNoScroll('remove')" id="close" src="src/img/icons/close.png">
+            <div id="info-container-header"></div>
+            <div class="pokemon-info">
+                <img id="background-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
+                <div class="left-side">
+                    
+                    <div class="basic-information">
+                        <div class="basic-infocard">
+                            <p>#<span class="pokemon-number${i} numbers numbers-info">000</span></p>
+                            <p class="pokemon-name${i} pokemon-names pokemon-names-info">Name</p>
+                        </div>  
+
+                        <div class="elements-infocard">
+                            <div class="elements type-infocard element1${i}">Element1</div>
+                            <div class="elements type-infocard element2${i}">Element2</div>
+                        </div>
             
-            <div class="image-frame-info bg${i}">
-                <img class="pokemon-img-style-info pokemon-img${i}" src="">
+                    </div>
+                    
+                    <div class="image-frame-info bg${i}">
+                        <img class="pokemon-img-style-info pokemon-img${i}" src="">
+                    </div>
+                </div>
+                <div class="right-side">
+                    <div class="reiter-container">
+                        <a onclick="activateReiter('unset','none','none'), activeReiter('add','remove','remove') " href="#${i}" class="reiter">Info</a>
+                        <a onclick="activateReiter('none','flex','none'),loadDetails(${i}),activeReiter('remove','add','remove')" href="#${i}" class="reiter">Details</a>
+                        <a onclick="activateReiter('none','none','unset'),generateChart(${i}),activeReiter('remove','remove','add')" href="#${i}" class="reiter">Attribute</a>
+                    </div>
+                <div class="content">
+                    <div style="display: unset;" class="description content-box" >Beschreibung</div>
+                    <div  style="display: none;" class="details content-box">
+                        <div><p><b>Kategorie:</b></p> <p class="category"></p></div>
+                        <div><p><b>Größe:</b></p> <p class="size"></p></div>
+                        <div><p><b>Gewicht:</b></p> <p class="weight"></p></div>
+                    </div>
+                    <div style="display: none;" class="attribute content-box">
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="right-side">
-            <div class="reiter-container">
-                <a onclick="activateReiter('unset','none','none'), activeReiter('add','remove','remove') " href="#${i}" class="reiter">Info</a>
-                <a onclick="activateReiter('none','flex','none'),loadDetails(${i}),activeReiter('remove','add','remove')" href="#${i}" class="reiter">Details</a>
-                <a onclick="activateReiter('none','none','unset'),generateChart(${i}),activeReiter('remove','remove','add')" href="#${i}" class="reiter">Attribute</a>
-            </div>
-          <div class="content">
-            <div style="display: unset;" class="description content-box" >Beschreibung</div>
-            <div  style="display: none;" class="details content-box">
-                <div><p><b>Kategorie:</b></p> <p class="category"></p></div>
-                <div><p><b>Größe:</b></p> <p class="size"></p></div>
-                <div><p><b>Gewicht:</b></p> <p class="weight"></p></div>
-            </div>
-            <div style="display: none;" class="attribute content-box">
-                <canvas id="myChart" width="400" height="400"></canvas>
-            </div>
-        </div>
-          
-           
-    </div>
-`
+    
+     `
+
     await loadPokemon(i)
     renderMainData(i, 1)
     loadDescriptions(i)
-    activeReiter('add','remove','remove')
+    activeReiter('add', 'remove', 'remove')
 }
 
 // loads the Description text for the Pokemon and add the HTML
@@ -300,4 +305,27 @@ function loadStats(i) {
 }
 
 
+
+function nextPokemon(i, action) {
+    let rightArrow = document.getElementById('right-arrow')
+    let leftArrow = document.getElementById('left-arrow')
+
+    switch (action) {
+        case 'up':
+            i++
+            break;
+        case 'down':
+            i--
+            break
+    }
+
+    if (i == 0) {
+        i = 151
+    } else if (i == 152) {
+        i = 1
+    }
+
+    renderInformationCard(i)
+
+}
 

@@ -2,6 +2,7 @@
 
 // enable/disable the loadingscreen
 function toggleLoading(action, scroll) {
+    window.scrollTo({ top: 0 });
     let animation = document.getElementById('loading-screen-container')
     animation.style.display = `${action}`
     toggleNoScroll(`${scroll}`)
@@ -20,7 +21,24 @@ function activeReiter(action1, action2, action3) {
 // Handels the function to close and open the Information Card
 function togglePopup(display) {
     let informationCard = document.getElementById('information-card')
-    informationCard.style.display = `${display}`
+   
+   
+    switch (display) {
+        case 'none':
+            informationCard.style.opacity= '0'
+            setTimeout(() => {
+                informationCard.style.display = `${display}`
+            }, 300);
+            break;
+    
+        case 'flex':
+           
+            informationCard.style.display = `${display}`
+            setTimeout(() => {
+                informationCard.style.opacity = '1'
+            }, 100);
+            break;
+    }
 
 }
 
