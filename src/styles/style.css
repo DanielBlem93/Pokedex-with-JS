@@ -425,6 +425,9 @@ main {
 }
 
 .type-infocard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     height: 30px;
     border-radius: 5px;
@@ -495,7 +498,6 @@ main {
     width: 80%;
     height: 96%;
     border-radius: 15px;
-
     background-color: rgba(8, 8, 8, 0.04);
     color: var(--Hauptfarbe);
 

@@ -142,7 +142,9 @@ async function renderInformationCard(i) {
 
     informationCard.innerHTML = "";
     informationCard.innerHTML = /*html*/`
-        <img onclick="doNotClose(event),nextPokemon(${i},'up')"  id="right-arrow" class="arrow" src="src/img/icons/icons8-arrow-80.png" alt="">
+        <img onclick="doNotClose(event),nextPokemon(${i},'up')" id="right-arrow" class="arrow" src="src/img/icons/icons8-arrow-80.png" alt="">
+        <span onclick="doNotClose(event),nextPokemon(${i},'down')" style="display: none;" id="left-text" class="nextText">Zurück</span>
+        <span onclick="doNotClose(event),nextPokemon(${i},'up')" style="display: none;" id="right-text" class="nextText">Weiter</span>
         <img onclick="doNotClose(event),nextPokemon(${i},'down')" id="left-arrow" class="arrow" src="src/img/icons/icons8-arrow-80.png" alt=""> 
        <div onclick="doNotClose(event)" id="information-container">
         
