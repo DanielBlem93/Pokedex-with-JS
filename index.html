@@ -13,8 +13,9 @@
 <body onload="init()">
     <div id="loading-screen-container" style="display: none;">
         <div id="loading-screen">
+            <p>Einen Moment Geduld.</p>
             <img id="loading-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
-            <p>Einen Moment Geduld <br> <span id="load">1</span> von <span id="loaded">151</span> Pokemon werden geladen
+            <p> <br> Beim ersten Mal dauert es etwas länger. <br> <span id="load">1</span> von <span id="loaded">151</span> Pokemon werden geladen
             </p>
 
         </div>
@@ -40,6 +41,8 @@
         <div id="pokedex">
 
         </div>
+        <img onclick="scrollToTop()" id="goUp" style="display: none;" src="src/img/icons/arrow-up.png">
+   
 
         <div onclick="togglePopup('none'),toggleNoScroll('remove')" id="information-card" style="display: none;">
             
@@ -51,7 +54,6 @@
         </div>
 
     </main>
-
    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>

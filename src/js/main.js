@@ -178,7 +178,7 @@ async function renderInformationCard(i) {
                         <a onclick="activateReiter('none','none','unset'),generateChart(${i}),activeReiter('remove','remove','add')" href="#${i}" class="reiter">Attribute</a>
                     </div>
                 <div class="content">
-                    <div style="display: unset;" class="description content-box" >Beschreibung</div>
+                    <div style="display: unset;" class="description content-box" >Lädt</div>
                     <div  style="display: none;" class="details content-box">
                         <div><p><b>Kategorie:</b></p> <p class="category"></p></div>
                         <div><p><b>Größe:</b></p> <p class="size"></p></div>
@@ -276,6 +276,8 @@ function generateChart(i) {
                 }]
             },
             options: {
+                maintainAspectRatio: false,
+                responsive:true,
                 indexAxis: 'y',
                 scales: {
                     y: {
@@ -309,8 +311,6 @@ function loadStats(i) {
 
 
 function nextPokemon(i, action) {
-    let rightArrow = document.getElementById('right-arrow')
-    let leftArrow = document.getElementById('left-arrow')
 
     switch (action) {
         case 'up':

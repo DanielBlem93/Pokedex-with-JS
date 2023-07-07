@@ -2,7 +2,7 @@
 
 // enable/disable the loadingscreen
 function toggleLoading(action, scroll) {
-    window.scrollTo({ top: 0 });
+    scrollToTop()
     let animation = document.getElementById('loading-screen-container')
     animation.style.display = `${action}`
     toggleNoScroll(`${scroll}`)
@@ -70,4 +70,8 @@ function toggleNoScroll(action) {
     let body = document.getElementsByTagName('body')[0]
     body.classList[action]('noscroll')
 
+}
+
+function scrollToTop(){
+    window.scrollTo({ top: 0 });
 }
