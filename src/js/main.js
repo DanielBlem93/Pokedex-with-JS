@@ -2,7 +2,6 @@
 
 let currentPokemon;
 let currentPokemon2;
-let currentPokemon3
 let statData;
 let pokemoncounter = 151
 let pokemons1 = ['MissingNo']
@@ -75,10 +74,10 @@ function loadingProgress(i) {
     let load2 = document.getElementById('load2')
     let loaded2 = document.getElementById('loaded2')
 
-    load.innerHTML = i
+    load.innerHTML = pokemons1.length -1
     loaded.innerHTML = pokemoncounter
 
-    load2.innerHTML = i
+    load2.innerHTML = pokemons1.length -1
     loaded2.innerHTML = pokemoncounter
 }
 // open/close loadingscreen and loadinginfo 
@@ -224,8 +223,6 @@ async function renderInformationCard(i) {
         </div>
     
      `
-
-    await loadPokemon(i)
     renderMainData(i, 1)
     loadDescriptions(i)
     activeReiter('add', 'remove', 'remove')
