@@ -34,23 +34,23 @@ function togglePopup(display) {
                 informationCard.style.opacity = '1'
                 disableArrows()
             }, 100);
-       
+
             break;
     }
-   
+
 }
 
 function disableArrows() {
-   
+
     let arrowRight = document.getElementById('right-arrow')
     let arrowLeft = document.getElementById('left-arrow')
     if (resetCounter == 1) {
         arrowLeft.style.display = 'none'
         arrowRight.style.display = 'none'
-    } else if ( resetCounter == 0) {
+    } else if (resetCounter == 0) {
         arrowLeft.style.display = 'unset'
         arrowRight.style.display = 'unset'
-    }else{
+    } else {
         console.log('nothing')
     }
 }
@@ -67,6 +67,11 @@ function toggleNoScroll(action) {
 
 }
 
-function scrollToTop(){
+function scrollToTop() {
     window.scrollTo({ top: 0 });
+}
+
+function clearArrays() {
+    pokemons1 = ['MissingNo']
+    pokemons2 = ['MissingNo']
 }

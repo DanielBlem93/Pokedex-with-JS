@@ -1,29 +1,58 @@
 // ============In this file are just the functions for the search and search-reset functions================
 
 // search function to look for a pokemon
+let searchedPokemon = ['missingno']
+function prepareSearching() {
+    for (let i = 1; i < pokemons2.length; i++) {
+        let pokemon = pokemons2[i]['names']['5']['name'];
+        pokemon = pokemon.toLowerCase()
+        searchedPokemon.push(pokemon)
+    }
+}
 
 function search() {
 
     let input = document.getElementById('search-input').value
+    let pokedex = document.getElementById('pokedex')
     input = input.toLowerCase();
+    pokedex.innerHTML = ''
     console.log(input)
 
-    for (let i = 1; i < pokemons2.length; i++) {
-        let pokemon = pokemons2[i]['names']['5']['name'];
-        pokemon = pokemon.toLowerCase()
+
+
+    for (let i = 1; i < searchedPokemon.length; i++) {
+
+        pokemon = searchedPokemon[i].toLowerCase()
+
         if (pokemon.includes(input)) {
 
-            let number = pokemons2[i]['id']
-            pokemoncounter = number
-            render(number)
+            pokedex.innerHTML += /*html*/` 
+
+            <div  id="${i}" onclick="togglePopup('flex'), renderInformationCard(${i}),toggleNoScroll('add')" class="pokemon-card bg${i}">
+                <div class="image-frame">
+                    <img class="pokemon-img-style pokemon-img${i}" src="">
+                </div>
+        
+                <div class="info-container">
+                    <div class="info-box">
+                        <div class="row">
+                            <p>
+                                <b>#</b><span class="pokemon-number${i} numbers"></span>
+                            </p>
+                            <div class="elements element1${i}" >Normal</div>
+                        </div>
+                        <div class="row">
+                            <p class="pokemon-name${i} pokemon-names"></p>
+                          
+                            <div class="elements element2${i}" >Pflanze</div> 
+                        </div>
+                    </div>
+                </div>
+            </div>`
+
+            renderMainData(i, 0)
             resetCounter = 1
-            break
 
-        } else {
-            let pokedex = document.getElementById('pokedex')
-
-            pokedex.innerHTML = ''
-            pokedex.innerHTML += `<h1>Pokemon nicht gefunden</h2>`
         }
     }
 }
