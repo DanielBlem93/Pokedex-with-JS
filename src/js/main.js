@@ -10,13 +10,18 @@ let resetCounter = 0
 
 // Initalise all functions onload 
 function init() {
-    toggleLoading('flex', 'add')
+    scrollToTop()
+    toggleLoading('flex', 'add', 'none')
     render(1)
 
 }
 
 // renders the HTML cards
 async function render(start) {
+
+    setTimeout(() => {
+        toggleLoading('none', 'remove', 'flex')
+    }, 6000);
 
     pokedex.innerHTML = '';
 
@@ -51,16 +56,43 @@ async function render(start) {
         renderMainData(i, 0)
 
     }
-    toggleLoading('none', 'remove')
+    setTimeout(() => {
+        toggleLoading('none', 'remove', 'none')
+    }, 4000);
+
 }
 // counts how many pokemons are loaded in lodingscreen
 function loadingProgress(i) {
     let load = document.getElementById('load')
     let loaded = document.getElementById('loaded')
+    let load2 = document.getElementById('load2')
+    let loaded2 = document.getElementById('loaded2')
 
     load.innerHTML = i
     loaded.innerHTML = pokemoncounter
+
+    load2.innerHTML = i
+    loaded2.innerHTML = pokemoncounter
 }
+
+function toggleLoading(action, scroll, action2) {
+
+    let animation = document.getElementById('loading-screen-container')
+    let miniLoading = document.getElementById('loading-mini-screen')
+
+    animation.style.display = `${action}`
+
+
+    if (action2 == undefined) {
+        console.log('nothing')
+    } else {
+        miniLoading.style.display = `${action2}`
+    }
+
+    toggleNoScroll(`${scroll}`)
+}
+
+
 
 // activates all necessary functions and render all needing datas
 function renderMainData(i, j) {
@@ -277,7 +309,7 @@ function generateChart(i) {
             },
             options: {
                 maintainAspectRatio: false,
-                responsive:true,
+                responsive: true,
                 indexAxis: 'y',
                 scales: {
                     y: {

@@ -635,10 +635,11 @@ main {
 }
 
 #loading-screen-container {
-    position: absolute;
+    position: fixed;
     top: 0;
+    bottom: 0;
     width: 100%;
-    height: 1000px;
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -662,6 +663,16 @@ main {
 
     padding: 10px;
     text-align: center;
+}
+
+#loading-mini-screen{
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(250, 235, 215, 0.795);
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 9;
+    left: 1%;
 }
 
 #loading-img {

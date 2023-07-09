@@ -1,12 +1,7 @@
 // ============In this file are small different functions===========
 
 // enable/disable the loadingscreen
-function toggleLoading(action, scroll) {
-    scrollToTop()
-    let animation = document.getElementById('loading-screen-container')
-    animation.style.display = `${action}`
-    toggleNoScroll(`${scroll}`)
-}
+
 // fills the reiter in informationcard with color when active
 function activeReiter(action1, action2, action3) {
     reiter1 = document.getElementsByClassName('reiter')[0]
