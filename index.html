@@ -1,73 +1,91 @@
 <!DOCTYPE html>
 <html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokedex</title>
-    <link rel="stylesheet" href="src/styles/style.css">
-    <link rel="stylesheet" href="src/styles/responsive.css">
+    <link rel="stylesheet" href="src/styles/style.css" />
+    <link rel="stylesheet" href="src/styles/responsive.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
 
-</head>
-
-<body onload="init()">
-    <div id="loading-screen-container" style="display: none;">
-        <div id="loading-screen">
-            <p>Einen Moment Geduld.</p>
-            <img id="loading-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
-            <p> <br><span id="load">1</span> von <span id="loaded">151</span> Pokemon werden geladen
-            </p>
-   
-
-        </div>
+  <body onload="init()">
+    <div id="loading-screen-container" style="display: none">
+      <div id="loading-screen">
+        <p>Einen Moment Geduld.</p>
+        <img id="loading-img" src="src/img/Poké_Ball_icon.svg.png" alt="" />
+        <p>
+          <br /><span id="load">1</span> von
+          <span id="loaded">151</span> Pokemon werden geladen
+        </p>
+      </div>
     </div>
 
-    <div style="display:none;" id="loading-mini-screen">
-        <span id="load2">1 </span> &nbsp/&nbsp <span id="loaded2">  151   </span> Pokemon geladen
+    <div style="display: none" id="loading-mini-screen">
+      <span id="load2">1</span> &nbsp/&nbsp <span id="loaded2">151</span>&nbsp
+      <span> Pokemon geladen</span>
     </div>
 
     <header>
-        <img id="pokeball-img" src="src/img/Poké_Ball_icon.svg.png" alt="">
-        <img id="pokemon-logo" src="src/img/pngegg.png" alt="">
-
-
+      <img id="pokeball-img" src="src/img/Poké_Ball_icon.svg.png" alt="" />
+      <img id="pokemon-logo" src="src/img/pngegg.png" alt="" />
     </header>
+
     <div id="headline">
-        <h1>Pokédex</h1>
-        <p>Gib den Namen deines gewünschten Pokemons ein!</p>
-        <div id="search">
-            <input oninput="search()" placeholder="" type="text" name="search" id="search-input">
-            <img onclick="resetOnClick() " id="reset-button"
-                src="src/img/icons/rotate-left-circular-arrow-interface-symbol.png" alt="">
-        </div>
+      <h1>Pokédex</h1>
+      <p>Gib den Namen deines gewünschten Pokemons ein!</p>
+      <div id="search">
+        <input
+          oninput="search()"
+          placeholder=""
+          type="text"
+          name="search"
+          id="search-input"
+        />
+        <img
+          onclick="resetOnClick() "
+          id="reset-button"
+          src="src/img/icons/rotate-left-circular-arrow-interface-symbol.png"
+          alt=""
+        />
+      </div>
     </div>
 
     <main>
-        <div id="pokedex">
+      <div id="pokedex"></div>
 
-        </div>
-        <img onclick="scrollToTop()" id="goUp" style="display: none;" src="src/img/icons/arrow-up.png">
-   
+      <img
+        onclick="scrollToTop()"
+        id="goUp"
+        style="display: none"
+        src="src/img/icons/arrow-up.png"
+      />
 
-        <div onclick="togglePopup('none'),toggleNoScroll('remove')" id="information-card" style="display: none;">
-            
-            <div onclick="doNotClose(event)" id="information-container">
-                
-            </div>
-            
-               
-        </div>
+      <div
+        onclick="togglePopup('none'),toggleNoScroll('remove')"
+        id="information-card"
+        style="display: none"
+      >
+        <div onclick="doNotClose(event)" id="information-container"></div>
+      </div>
 
+      <div onclick="renderMore()" id="laod-more-container">
+        <button id="load-more">Mehr Pokemon Laden</button>
+      </div>
     </main>
-   
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
     <script src="src/js/main.js"></script>
     <script src="src/js/scripts.js"></script>
     <script src="src/js/translateToGerman.js"></script>
     <script src="src/js/search.js"></script>
-</body>
-
+  </body>
 </html>
 
 <!-- <a href="https://www.flaticon.com/" title="arrowhead icons"> icons created by Freepik - Flaticon</a> -->

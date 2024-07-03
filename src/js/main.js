@@ -3,7 +3,9 @@
 let currentPokemon;
 let currentPokemon2;
 let statData;
-let pokemoncounter = 151
+let pokemoncounter = 25
+let currentPokemonCounter = 25
+let isLoading = false
 let pokemons1 = ['MissingNo']
 let pokemons2 = ['MissingNo']
 let urls = ['MissingNo']
@@ -15,58 +17,68 @@ async function init() {
     scrollToTop()
     toggleLoading('flex', 'add', 'none')
     await render(1)
-    setTimeout(() => {
-        toggleLoading('none', 'remove', 'flex')
-    }, 5000);
     prepareSearching()
+    console.log(`
+    Manchmal sieht es kurz so aus als ob die Seite keine weiteren Pokemon lädt es nicht weiter geht.
+    Dies kann daran liegen, dass der Server von der PokeAPI die Anfragen kurz blockiert. 
+    Wenn man geduldig ist und ein wenig länger wartet dann geht es auch weiter mit dem laden.  
+        `
+    )
 }
 
 // renders the HTML cards
 async function render(start) {
-    clearArrays()
+    if (!isLoading) {
+        clearArrays()
+        setTimeout(() => {
+            toggleLoading('none', 'remove', 'flex')
+        }, 5000);
 
-    setTimeout(() => {
-        toggleLoading('none', 'remove', 'flex')
-    }, 5000);
-
-    pokedex.innerHTML = '';
-
-    for (let i = start; i <= pokemoncounter; i++) {
-
-        await loadPokemon(i)
-
-        let pokedex = document.getElementById('pokedex')
-        pokedex.innerHTML += /*html*/` 
-
-        <div  id="${i}" onclick="togglePopup('flex'), renderInformationCard(${i}),toggleNoScroll('add')" class="pokemon-card bg${i}">
-            <div class="image-frame">
-                <img class="pokemon-img-style pokemon-img${i}" src="">
-            </div>
-    
-            <div class="info-container">
-                <div class="info-box">
-                    <div class="row">
-                        <p>
-                            <b>#</b><span class="pokemon-number${i} numbers"></span>
-                        </p>
-                        <div class="elements element1${i}" >Normal</div>
-                    </div>
-                    <div class="row">
-                        <p class="pokemon-name${i} pokemon-names"></p>
-                      
-                        <div class="elements element2${i}" >Pflanze</div> 
-                    </div>
-                </div>
-            </div>
-        </div>`
-        renderMainData(i, 0)
-
+        await renderPokemnonHtml(start)
     }
-    setTimeout(() => {
-        toggleLoading('none', 'remove', 'none')
-    }, 5100);
+
 
 }
+
+async function renderPokemnonHtml(start) {
+    if (!isLoading) {
+        isLoading = true
+        pokedex.innerHTML = '';
+        for (let i = start; i <= pokemoncounter; i++) {
+
+            await loadPokemon(i)
+
+            let pokedex = document.getElementById('pokedex')
+            pokedex.innerHTML += /*html*/` 
+    
+            <div  id="${i}" onclick="togglePopup('flex'), renderInformationCard(${i}),toggleNoScroll('add')" class="pokemon-card bg${i}">
+                <div class="image-frame">
+                    <img class="pokemon-img-style pokemon-img${i}" src="">
+                </div>
+        
+                <div class="info-container">
+                    <div class="info-box">
+                        <div class="row">
+                            <p>
+                                <b>#</b><span class="pokemon-number${i} numbers"></span>
+                            </p>
+                            <div class="elements element1${i}" >Normal</div>
+                        </div>
+                        <div class="row">
+                            <p class="pokemon-name${i} pokemon-names"></p>
+                          
+                            <div class="elements element2${i}" >Pflanze</div> 
+                        </div>
+                    </div>
+                </div>
+            </div>`
+            renderMainData(i, 0)
+        }
+    }
+    isLoading = false
+
+}
+
 // counts how many pokemons are loaded in lodingscreen
 function loadingProgress(i) {
     let load = document.getElementById('load')
@@ -74,25 +86,33 @@ function loadingProgress(i) {
     let load2 = document.getElementById('load2')
     let loaded2 = document.getElementById('loaded2')
 
-    load.innerHTML = pokemons1.length -1
+    load.innerHTML = pokemons1.length - 1
     loaded.innerHTML = pokemoncounter
+    if (pokemons1.length === pokemoncounter) {
+        setTimeout(() => {
+            toggleLoading('none', 'remove', 'none')
+        }, 7000);
+    } else {
+        load2.innerHTML = pokemons1.length - 1
+        loaded2.innerHTML = pokemoncounter
+    }
 
-    load2.innerHTML = pokemons1.length -1
-    loaded2.innerHTML = pokemoncounter
 }
+
+
 // open/close loadingscreen and loadinginfo 
 function toggleLoading(action, scroll, action2) {
 
     let animation = document.getElementById('loading-screen-container')
     let miniLoading = document.getElementById('loading-mini-screen')
 
-    animation.style.display = `${action}`
+    animation.style.display = `${action} `
 
 
     if (action2 == undefined) {
         console.log('nothing')
     } else {
-        miniLoading.style.display = `${action2}`
+        miniLoading.style.display = `${action2} `
     }
 
     toggleNoScroll(`${scroll}`)
@@ -114,12 +134,12 @@ async function loadPokemon(i) {
     let url2 = `https://pokeapi.co/api/v2/pokemon-species/${i} `
     let response = await fetch(url);
     let response2 = await fetch(url2);
-    
+
     currentPokemon = await response.json();
     currentPokemon2 = await response2.json();
     pokemons1.push(currentPokemon)
     pokemons2.push(currentPokemon2)
-  
+
 }
 
 // Gives the Pokemoncard the Name, ID and the Image
@@ -164,6 +184,13 @@ function changeBackgroundColor(i, j) {
     pokemonCard[j].classList.add(`${mainElement}`)
     element1.classList.add(`${mainElement}`)
     element2.classList.add(`${secondElement}`)
+}
+
+async function renderMore() {
+    pokemoncounter += 26
+    currentPokemonCounter = pokemoncounter
+    await render(1)
+    prepareSearching()
 }
 
 //=============== All functions for the Popup Information Card =====================
@@ -359,9 +386,9 @@ function nextPokemon(i, action) {
             break
     }
 
-    if (i == 0) {
-        i = 151
-    } else if (i == 152) {
+    if (i <= 0) {
+        i = pokemoncounter
+    } else if (i > pokemoncounter) {
         i = 1
     }
 

@@ -3,6 +3,7 @@
 // search function to look for a pokemon
 let searchedPokemon = ['missingno']
 function prepareSearching() {
+    searchedPokemon = ['missingno']
     for (let i = 1; i < pokemons2.length; i++) {
         let pokemon = pokemons2[i]['names']['5']['name'];
         pokemon = pokemon.toLowerCase()
@@ -16,9 +17,6 @@ function search() {
     let pokedex = document.getElementById('pokedex')
     input = input.toLowerCase();
     pokedex.innerHTML = ''
-    console.log(input)
-
-
 
     for (let i = 1; i < searchedPokemon.length; i++) {
 
@@ -27,12 +25,10 @@ function search() {
         if (pokemon.includes(input)) {
 
             pokedex.innerHTML += /*html*/` 
-
             <div  id="${i}" onclick="togglePopup('flex'), renderInformationCard(${i}),toggleNoScroll('add')" class="pokemon-card bg${i}">
                 <div class="image-frame">
                     <img class="pokemon-img-style pokemon-img${i}" src="">
                 </div>
-        
                 <div class="info-container">
                     <div class="info-box">
                         <div class="row">
@@ -43,7 +39,6 @@ function search() {
                         </div>
                         <div class="row">
                             <p class="pokemon-name${i} pokemon-names"></p>
-                          
                             <div class="elements element2${i}" >Pflanze</div> 
                         </div>
                     </div>
@@ -83,7 +78,7 @@ function resetOnClick() {
 }
 // emptys the input and re-render all pokemons
 function clear() {
-    pokemoncounter = 151
+    pokemoncounter = currentPokemonCounter
     document.getElementById('search-input').value = ''
     render(1)
     resetCounter = 0

@@ -544,7 +544,34 @@ main {
     right: 1.5%;
     opacity: 0.5;
     z-index: 2;
+    cursor: pointer;
 }
+#goUp:hover{
+    opacity: 1;
+}
+
+#laod-more-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#load-more {
+    font-size: 1.2rem;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    padding: 16px;
+    border: 2px solid var(--Hauptfarbe);
+    border-radius: 10px;
+    background-color: rgba(58, 112, 160, 0.664);
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+#load-more:hover{
+    background-color: var(--Hauptfarbe);
+} 
 
 
 
@@ -639,7 +666,7 @@ main {
     top: 0;
     bottom: 0;
     width: 100%;
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -665,7 +692,7 @@ main {
     text-align: center;
 }
 
-#loading-mini-screen{
+#loading-mini-screen {
     position: fixed;
     bottom: 0;
     background-color: rgba(250, 235, 215, 0.795);

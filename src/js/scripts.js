@@ -1,7 +1,5 @@
 // ============In this file are small different functions===========
 
-// enable/disable the loadingscreen
-
 // fills the reiter in informationcard with color when active
 function activeReiter(action1, action2, action3) {
     reiter1 = document.getElementsByClassName('reiter')[0]
@@ -40,6 +38,7 @@ function togglePopup(display) {
 
 }
 
+// 
 function disableArrows() {
 
     let arrowRight = document.getElementById('right-arrow')
@@ -51,7 +50,7 @@ function disableArrows() {
         arrowLeft.style.display = 'unset'
         arrowRight.style.display = 'unset'
     } else {
-        console.log('nothing')
+    //  nothing
     }
 }
 
